@@ -1,0 +1,34 @@
+@using DynamicMVC.UI.DynamicMVC.Helpers
+@model DynamicMVC.UI.DynamicMVC.ViewModels.DynamicCreateViewModel
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<div class="container">
+    <div class="row">
+        <h1>@Model.Header</h1>
+    </div>
+</div>
+
+<div class="container">
+    @* ReSharper disable once RedundantAnonymousTypePropertyName *@
+    @using (Html.BeginForm("Create", Model.TypeName, new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
+    {
+        @Html.Partial("DynamicControls/_DisplayMessage", false)
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(false)
+        foreach (var dynamicPropertyViewModel in Model.DynamicEditorViewModels)
+        {
+            @Html.DynamicEditor(dynamicPropertyViewModel)
+        }
+        <div class="row">
+            <button type="submit" class="btn btn-default">@Model.ButtonText</button>
+            @Html.Partial("Partials/_DynamicUIMethods", Model.DynamicUIMethods)
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

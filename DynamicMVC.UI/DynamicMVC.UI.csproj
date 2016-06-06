@@ -1,0 +1,636 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3FF47307-9019-46B6-A25A-DAE887ABB7A3}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DynamicMVC.UI</RootNamespace>
+    <AssemblyName>DynamicMVC.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DynamicLinqExtensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DynamicLinqExtensions.1.0.2\lib\DynamicLinqExtensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Mvc.4.0.1\lib\net45\Microsoft.Practices.Unity.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DynamicController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DynamicMVC\CorrectQueryStringTypesActionFilter.cs" />
+    <Compile Include="DynamicMVC\DynamicControllerBase.cs" />
+    <Compile Include="DynamicMVC\DynamicMVCContext.cs" />
+    <Compile Include="DynamicMVC\DynamicMVCContextOptions.cs" />
+    <Compile Include="DynamicMVC\DynamicMVCUnityConfig.cs" />
+    <Compile Include="DynamicMVC\Extensions\RouteValueExtensions.cs" />
+    <Compile Include="DynamicMVC\Factories\DynamicFilterFactory.cs" />
+    <Compile Include="DynamicMVC\Helpers\Helpers.cs" />
+    <Compile Include="DynamicMVC\Interfaces\IDynamicCreateViewModelBuilder.cs" />
+    <Compile Include="DynamicMVC\Interfaces\IDynamicDeleteViewModelBuilder.cs" />
+    <Compile Include="DynamicMVC\Interfaces\IDynamicDetailsViewModelBuilder.cs" />
+    <Compile Include="DynamicMVC\Interfaces\IDynamicDisplayName.cs" />
+    <Compile Include="DynamicMVC\Interfaces\IDynamicDisplayPartialModelBuilder.cs" />
+    <Compile Include="DynamicMVC\Interfaces\IDynamicEditorModelBuilder.cs" />
+    <Compile Include="DynamicMVC\Interfaces\IDynamicEditViewModelBuilder.cs" />
+    <Compile Include="DynamicMVC\Interfaces\IDynamicEntitySearchManager.cs" />
+    <Compile Include="DynamicMVC\Interfaces\IDynamicFilter.cs" />
+    <Compile Include="DynamicMVC\Interfaces\IDynamicFilterFactory.cs" />
+    <Compile Include="DynamicMVC\Interfaces\IDynamicFilterManager.cs" />
+    <Compile Include="DynamicMVC\Interfaces\IDynamicIndexPageViewModelBuilder.cs" />
+    <Compile Include="DynamicMVC\Interfaces\IDynamicIndexViewModelBuilder.cs" />
+    <Compile Include="DynamicMVC\Interfaces\IDynamicMVCManager.cs" />
+    <Compile Include="DynamicMVC\Interfaces\IDynamicPropertyViewModelBuilder.cs" />
+    <Compile Include="DynamicMVC\Interfaces\IPagingManager.cs" />
+    <Compile Include="DynamicMVC\Interfaces\IRequestManager.cs" />
+    <Compile Include="DynamicMVC\Interfaces\IReturnUrlManager.cs" />
+    <Compile Include="DynamicMVC\Interfaces\ISelectListItemManager.cs" />
+    <Compile Include="DynamicMVC\Interfaces\IUrlManager.cs" />
+    <Compile Include="DynamicMVC\Managers\DynamicEntitySearchManager.cs" />
+    <Compile Include="DynamicMVC\Managers\DynamicFilterManager.cs" />
+    <Compile Include="DynamicMVC\Managers\DynamicMvcManager.cs" />
+    <Compile Include="DynamicMVC\Managers\PagingManager.cs" />
+    <Compile Include="DynamicMVC\Managers\RequestManager.cs" />
+    <Compile Include="DynamicMVC\Managers\ReturnUrlManager.cs" />
+    <Compile Include="DynamicMVC\Managers\SelectListItemManager.cs" />
+    <Compile Include="DynamicMVC\Managers\UrlManager.cs" />
+    <Compile Include="DynamicMVC\RouteValueDictionaryWrapper.cs" />
+    <Compile Include="DynamicMVC\Strategies\DynamicDisplayPartialModelBuilders\DynamicDisplayHyperlinkModelBuilder.cs" />
+    <Compile Include="DynamicMVC\Strategies\DynamicEditorModelBuilders\DynamicEditorAutoCompleteBuilder.cs" />
+    <Compile Include="DynamicMVC\Strategies\DynamicEditorModelBuilders\DynamicEditorDropDownModelBuilder.cs" />
+    <Compile Include="DynamicMVC\Strategies\DynamicEditorModelBuilders\DynamicEditorHyperlinkBuilder.cs" />
+    <Compile Include="DynamicMVC\Strategies\DynamicMethodInvoker\EmptyDynamicMethodInvoker.cs" />
+    <Compile Include="DynamicMVC\ViewModelBuilders\DynamicCreateViewModelBuilder.cs" />
+    <Compile Include="DynamicMVC\ViewModelBuilders\DynamicDeleteViewModelBuilder.cs" />
+    <Compile Include="DynamicMVC\ViewModelBuilders\DynamicDetailsViewModelBuilder.cs" />
+    <Compile Include="DynamicMVC\ViewModelBuilders\DynamicEditViewModelBuilder.cs" />
+    <Compile Include="DynamicMVC\ViewModelBuilders\DynamicIndexPageViewModelBuilder.cs" />
+    <Compile Include="DynamicMVC\ViewModelBuilders\DynamicIndexViewModelBuilder.cs" />
+    <Compile Include="DynamicMVC\ViewModelBuilders\DynamicPropertyViewModelBuilder.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicControls\DynamicEditorViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicControls\DynamicTableHeaderViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicControls\MessageViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicCreateViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicDeleteViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicDetailsViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicEditorViewModels\DynamicEditorAutoCompleteViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicEditorViewModels\DynamicEditorDropDownViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicEditorViewModels\DynamicEditorHyperlinkViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicEditViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicFilterViewModels\DynamicFilterAutoCompleteViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicFilterViewModels\DynamicFilterBaseViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicFilterViewModels\DynamicFilterBooleanViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicFilterViewModels\DynamicFilterContainsTextBoxViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicFilterViewModels\DynamicFilterDateRangeViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicFilterViewModels\DynamicFilterDateTimeViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicFilterViewModels\DynamicFilterDropDownViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicFilterViewModels\DynamicFilterExactMatchTextBoxViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicIndexItemViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicIndexMobileItemViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicIndexPageViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicIndexViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicMenuItemViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicPropertyViewModels\DynamicFilterViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicPropertyViewModels\DynamicPropertyEditorViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicPropertyViewModels\DynamicPropertyIndexViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\DynamicPropertyViewModels\DynamicPropertyViewModel.cs" />
+    <Compile Include="DynamicMVC\ViewModels\Partials\DynamicIndexFiltersViewModel.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407201607301_initial.cs" />
+    <Compile Include="Migrations\201407201607301_initial.Designer.cs">
+      <DependentUpon>201407201607301_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407201609255_customerandproduct.cs" />
+    <Compile Include="Migrations\201407201609255_customerandproduct.Designer.cs">
+      <DependentUpon>201407201609255_customerandproduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407201903537_customerregion.cs" />
+    <Compile Include="Migrations\201407201903537_customerregion.Designer.cs">
+      <DependentUpon>201407201903537_customerregion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407261402330_addedorder.cs" />
+    <Compile Include="Migrations\201407261402330_addedorder.Designer.cs">
+      <DependentUpon>201407261402330_addedorder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407261420404_modifiedproduct.cs" />
+    <Compile Include="Migrations\201407261420404_modifiedproduct.Designer.cs">
+      <DependentUpon>201407261420404_modifiedproduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407271546462_orderstatus.cs" />
+    <Compile Include="Migrations\201407271546462_orderstatus.Designer.cs">
+      <DependentUpon>201407271546462_orderstatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601162209172_ishotorder.cs" />
+    <Compile Include="Migrations\201601162209172_ishotorder.Designer.cs">
+      <DependentUpon>201601162209172_ishotorder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602190308519_hotorderl.cs" />
+    <Compile Include="Migrations\201602190308519_hotorderl.Designer.cs">
+      <DependentUpon>201602190308519_hotorderl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602211514393_requesteddatetime.cs" />
+    <Compile Include="Migrations\201602211514393_requesteddatetime.Designer.cs">
+      <DependentUpon>201602211514393_requesteddatetime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602211555076_notes.cs" />
+    <Compile Include="Migrations\201602211555076_notes.Designer.cs">
+      <DependentUpon>201602211555076_notes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\CustomerRegion.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderLine.cs" />
+    <Compile Include="Models\OrderStatus.cs" />
+    <Compile Include="Models\OrderType.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\aspnet-DynamicMVC.UI-20140716102202.mdf" />
+    <Content Include="App_Data\aspnet-DynamicMVC.UI-20140716102202_log.ldf">
+      <DependentUpon>aspnet-DynamicMVC.UI-20140716102202.mdf</DependentUpon>
+    </Content>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\select2-spinner.gif" />
+    <Content Include="Content\css\select2.css" />
+    <Content Include="Content\css\select2.png" />
+    <Content Include="Content\css\select2x2.png" />
+    <Content Include="Content\DynamicStyle.css" />
+    <Content Include="Content\select2custom.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\Validation.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\DynamicScript.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.11.1.js" />
+    <Content Include="Scripts\jquery-ui.min-1.11.1.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_ar.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_az.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_bg.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_ca.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_cs.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_da.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_de.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_el.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_es.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_et.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_eu.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_fa.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_fi.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_fr.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_gl.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_he.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_hr.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_hu.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_id.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_is.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_it.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_ja.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_ka.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_ko.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_lt.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_lv.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_mk.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_ms.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_nl.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_no.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_pl.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_pt-BR.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_pt-PT.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_ro.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_rs.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_ru.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_sk.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_sv.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_th.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_tr.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_ua.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_uk.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_vi.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_zh-CN.js" />
+    <Content Include="Scripts\Select2-locales\select2_locale_zh-TW.js" />
+    <Content Include="Scripts\select2.js" />
+    <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\DynamicControls\_DisplayMessage.cshtml" />
+    <Content Include="Views\Shared\DynamicControls\_DynamicTableHeader.cshtml" />
+    <Content Include="Views\Shared\DynamicControls\_NextDesktopButton.cshtml" />
+    <Content Include="Views\Shared\DynamicControls\_NextMobileButton.cshtml" />
+    <Content Include="Views\Shared\DynamicControls\_PreviousDesktopButton.cshtml" />
+    <Content Include="Views\Shared\DynamicControls\_PreviousMobileButton.cshtml" />
+    <Content Include="Views\Shared\DynamicDisplayPartials\_DynamicDisplay.cshtml" />
+    <Content Include="Views\Shared\DynamicDisplayPartials\_DynamicDisplayHyperlink.cshtml" />
+    <Content Include="Views\Shared\DynamicFilters\DynamicFilterAutoComplete.cshtml" />
+    <Content Include="Views\Shared\DynamicFilters\DynamicFilterBoolean.cshtml" />
+    <Content Include="Views\Shared\DynamicFilters\DynamicFilterContainsTextBox.cshtml" />
+    <Content Include="Views\Shared\DynamicFilters\DynamicFilterDateRange.cshtml" />
+    <Content Include="Views\Shared\DynamicFilters\DynamicFilterDateTime.cshtml" />
+    <Content Include="Views\Shared\DynamicFilters\DynamicFilterDropDown.cshtml" />
+    <Content Include="Views\Shared\DynamicFilters\DynamicFilterExactMatchTextBox.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DynamicEditor.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DynamicEditorAutoComplete.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DynamicEditorBool.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DynamicEditorBoolNullable.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DynamicEditorDateTime.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DynamicEditorDropDown.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DynamicEditorHidden.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DynamicEditorHyperlink.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DynamicEditorMultiLine.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DynamicEditorMultiLineReadonly.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DynamicEditorPassword.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DynamicEditorReadOnly.cshtml" />
+    <Content Include="Views\Shared\Partials\_DynamicIndexFilters.cshtml" />
+    <Content Include="Views\Shared\Partials\_DynamicIndexHeader.cshtml" />
+    <Content Include="Views\Shared\Partials\_DynamicIndexItem.cshtml" />
+    <Content Include="Views\Shared\Partials\_DynamicIndexMobileItem.cshtml" />
+    <Content Include="Views\Shared\Partials\_DynamicUIMethods.cshtml" />
+    <Content Include="Views\Shared\_DynamicIndex.cshtml" />
+    <Content Include="Views\Shared\DynamicCreate.cshtml" />
+    <Content Include="Views\Shared\DynamicDelete.cshtml" />
+    <Content Include="Views\Shared\DynamicDetails.cshtml" />
+    <Content Include="Views\Shared\DynamicEdit.cshtml" />
+    <Content Include="Views\Shared\DynamicIndex.cshtml" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DynamicMVC.Annotations\DynamicMVC.Annotations.csproj">
+      <Project>{88a8dcd2-d8bc-436d-9fa0-38d37cb684c7}</Project>
+      <Name>DynamicMVC.Annotations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DynamicMVC.Data\DynamicMVC.Data.csproj">
+      <Project>{bcb3a7ba-07ee-482c-8cba-4202c807585d}</Project>
+      <Name>DynamicMVC.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DynamicMVC.DynamicEntityMetadataLibrary\DynamicMVC.DynamicEntityMetadataLibrary.csproj">
+      <Project>{3071d859-e6a4-4f7a-abcb-2bc0bf00b3f6}</Project>
+      <Name>DynamicMVC.DynamicEntityMetadataLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DynamicMVC.EntityMetadataLibrary\DynamicMVC.EntityMetadataLibrary.csproj">
+      <Project>{109874a7-50ba-49b5-97c0-fc36943928cb}</Project>
+      <Name>DynamicMVC.EntityMetadataLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DynamicMVC.Shared\DynamicMVC.Shared.csproj">
+      <Project>{f6b9a40f-e5ee-4f49-a94a-1287991dfa63}</Project>
+      <Name>DynamicMVC.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReflectionLibrary\ReflectionLibrary.csproj">
+      <Project>{2aa70f62-1b8e-470e-93be-b5db70fdc2d9}</Project>
+      <Name>ReflectionLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201407201607301_initial.resx">
+      <DependentUpon>201407201607301_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407201609255_customerandproduct.resx">
+      <DependentUpon>201407201609255_customerandproduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407201903537_customerregion.resx">
+      <DependentUpon>201407201903537_customerregion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407261402330_addedorder.resx">
+      <DependentUpon>201407261402330_addedorder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407261420404_modifiedproduct.resx">
+      <DependentUpon>201407261420404_modifiedproduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407271546462_orderstatus.resx">
+      <DependentUpon>201407271546462_orderstatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601162209172_ishotorder.resx">
+      <DependentUpon>201601162209172_ishotorder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602190308519_hotorderl.resx">
+      <DependentUpon>201602190308519_hotorderl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602211514393_requesteddatetime.resx">
+      <DependentUpon>201602211514393_requesteddatetime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602211555076_notes.resx">
+      <DependentUpon>201602211555076_notes.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>4920</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:2755/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

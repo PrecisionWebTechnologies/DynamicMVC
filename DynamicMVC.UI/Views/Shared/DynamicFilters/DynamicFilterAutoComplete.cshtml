@@ -1,0 +1,9 @@
+@model DynamicMVC.UI.DynamicMVC.ViewModels.DynamicFilterViewModels.DynamicFilterAutoCompleteViewModel
+
+<div class="form-group">
+    @Html.Label(Model.QueryStringName, Model.LabelText)
+    <div class="form-group">
+        @Html.TextBox(Model.QueryStringName, Model.FilterValue, new { @class = "autocomplete", @style = "width : 175px;", data_url = @Url.Action("AutoCompleteCustom", Model.Type.Name, new { valueMember = Model.ValueMember, displayMember = Model.DisplayMember}), data_default = Model.FilterText, data_id = Model.QueryStringName })
+        @Html.ValidationMessage(Model.QueryStringName)
+    </div>
+</div>

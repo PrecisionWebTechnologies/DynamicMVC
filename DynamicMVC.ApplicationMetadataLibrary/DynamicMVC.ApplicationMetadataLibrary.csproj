@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2268E15B-7629-46E2-A8A1-2F5BC3FCF5F6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DynamicMVC.ApplicationMetadataLibrary</RootNamespace>
+    <AssemblyName>DynamicMVC.ApplicationMetadataLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationMetadataManager.cs" />
+    <Compile Include="Builders\ApplicationControllerMetadataBuilder.cs" />
+    <Compile Include="Builders\ApplicationControllerMethodMetadataBuilder.cs" />
+    <Compile Include="Builders\ApplicationEntityBuilder.cs" />
+    <Compile Include="Builders\ApplicationEntityMetadataBuilder.cs" />
+    <Compile Include="Builders\ApplicationEntityMetadataPropertyBuilder.cs" />
+    <Compile Include="Builders\ReflectedClassesBuilder.cs" />
+    <Compile Include="Extensions\PropertyInfoExtensions.cs" />
+    <Compile Include="Interfaces\IApplicationControllerMetadataBuilder.cs" />
+    <Compile Include="Interfaces\IApplicationControllerMethodMetadataBuilder.cs" />
+    <Compile Include="Interfaces\IApplicationEntityBuilder.cs" />
+    <Compile Include="Interfaces\IApplicationEntityMetadataBuilder.cs" />
+    <Compile Include="Interfaces\IApplicationEntityMetadataPropertyBuilder.cs" />
+    <Compile Include="Interfaces\IApplicationMetadataManager.cs" />
+    <Compile Include="Interfaces\IApplicationMetadataProviderValidator.cs" />
+    <Compile Include="Interfaces\IApplicationMetadataSummaryPreValidateProcess.cs" />
+    <Compile Include="Interfaces\IApplicationMetadataSummaryValidator.cs" />
+    <Compile Include="Interfaces\IApplicationMetadataValidationManager.cs" />
+    <Compile Include="Interfaces\IReflectedClassesBuilder.cs" />
+    <Compile Include="Interfaces\ISimpleTypeParser.cs" />
+    <Compile Include="Interfaces\ITypeManager.cs" />
+    <Compile Include="Managers\ApplicationMetadataValidationManager.cs" />
+    <Compile Include="Managers\TypeManager.cs" />
+    <Compile Include="Models\ApplicationControllerMetadata.cs" />
+    <Compile Include="Models\ApplicationControllerMethodMetadata.cs" />
+    <Compile Include="Models\ApplicationEntity.cs" />
+    <Compile Include="Models\ApplicationEntityMetadata.cs" />
+    <Compile Include="Models\ApplicationEntityMetadataProperty.cs" />
+    <Compile Include="Models\ApplicationEntityProperty.cs" />
+    <Compile Include="Models\ApplicationMetadataSummary.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Strategies\ApplicationMetadataProviderValidators\DynamicEntityAttributeIsNotDuplicated.cs" />
+    <Compile Include="Strategies\ApplicationMetadataProviderValidators\SimpleTypeParsersAreUnique.cs" />
+    <Compile Include="Strategies\ApplicationMetadataProviderValidators\TypesAreNotEmpty.cs" />
+    <Compile Include="Strategies\ApplicationMetadataSummaryPreValidateProcesses\FixUpApplicationControllerMetadataProcess.cs" />
+    <Compile Include="Strategies\ApplicationMetadataSummaryValidators\EveryMetadataHasMatchingEntity.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeBoolNullableParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeBoolParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeByteNullableParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeByteParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeCharNullableParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeCharParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeDateTimeNullableParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeDateTimeParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeDecimalNullableParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeDecimalParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeDoubleNullableParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeDoubleParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeFloatNullableParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeFloatParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeGuidNullableParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeGuidParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeInt16NullableParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeInt16Parser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeInt32NullableParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeInt32Parser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeInt64NullableParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeInt64Parser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeSByteNullableParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeSByteParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeStringParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeUInt16NullableParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeUInt16Parser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeUInt32NullableParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeUInt32Parser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeUInt64NullableParser.cs" />
+    <Compile Include="Strategies\SimpleTypeParsers\SimpleTypeUInt64Parser.cs" />
+    <Compile Include="UnityConfig.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Diagrams\ClassDiagram.cd" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DynamicMVC.Annotations\DynamicMVC.Annotations.csproj">
+      <Project>{88a8dcd2-d8bc-436d-9fa0-38d37cb684c7}</Project>
+      <Name>DynamicMVC.Annotations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DynamicMVC.Shared\DynamicMVC.Shared.csproj">
+      <Project>{f6b9a40f-e5ee-4f49-a94a-1287991dfa63}</Project>
+      <Name>DynamicMVC.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReflectionLibrary\ReflectionLibrary.csproj">
+      <Project>{2aa70f62-1b8e-470e-93be-b5db70fdc2d9}</Project>
+      <Name>ReflectionLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

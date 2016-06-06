@@ -1,0 +1,16 @@
+@model bool?
+
+@{
+    var selectList = new List<SelectListItem>();
+    selectList.Add(new SelectListItem(){Selected = Model == null,Text = "Not Set",Value = ""});
+    selectList.Add(new SelectListItem() { Selected = Model == true, Text = "True", Value = "true" });
+    selectList.Add(new SelectListItem() { Selected = Model == false, Text = "False", Value = "false" });
+}
+<div class="form-group">
+        @Html.LabelFor(m => m)
+        <div class="">
+            @Html.DropDownListFor(m=>m, selectList, new {@class = "form-control"})
+        </div>
+</div>
+
+

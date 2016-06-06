@@ -1,0 +1,27 @@
+@using DynamicMVC.UI.DynamicMVC.Helpers
+@model DynamicMVC.UI.DynamicMVC.ViewModels.DynamicDetailsViewModel
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<div class="container">
+    <div class="row">
+        <h1>@Model.Header</h1>
+    </div>
+</div>
+
+<div class="container">
+    @using (Html.BeginForm("Details", Model.TypeName, null, FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
+    {
+        @Html.Partial("DynamicControls/_DisplayMessage", false)
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(false)
+    @Html.Hidden("Id")
+        foreach (var dynamicPropertyViewModel in Model.DynamicEditorViewModels)
+        {
+            @Html.DynamicEditor(dynamicPropertyViewModel)
+        }
+        @Html.Partial("Partials/_DynamicUIMethods", Model.DynamicUIMethods)
+    }
+</div>

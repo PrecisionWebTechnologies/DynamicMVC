@@ -1,0 +1,19 @@
+@model DynamicMVC.UI.DynamicMVC.ViewModels.DynamicIndexPageViewModel
+
+@if (Model.ShowDelete)
+{
+    <th></th>
+}
+@if (Model.ShowEdit)
+{
+    <th></th>
+}
+@if (Model.ShowDetails)
+{
+    <th></th>
+}
+
+@foreach (var item in Model.DynamicTableHeaderViewModels)
+{
+    @Html.Partial("DynamicControls/_DynamicTableHeader", item);
+}

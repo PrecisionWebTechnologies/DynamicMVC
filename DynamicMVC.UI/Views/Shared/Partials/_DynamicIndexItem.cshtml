@@ -1,0 +1,22 @@
+@model DynamicMVC.UI.DynamicMVC.ViewModels.DynamicIndexItemViewModel
+
+<tr>
+    @if (Model.ShowDelete)
+    {
+        <td>@Html.ActionLink("Delete", "Delete", Model.TypeName, Model.RouteValueDictionaryWrapper.GetRouteValueDictionary(), null)</td>
+    }
+    @if (Model.ShowEdit)
+    {
+        <td>@Html.ActionLink("Edit", "Edit", Model.TypeName, Model.RouteValueDictionaryWrapper.GetRouteValueDictionary(), null)</td>
+    }
+    @if (Model.ShowDetails)
+    {
+        <td>@Html.ActionLink("Details", "Details", Model.TypeName, Model.RouteValueDictionaryWrapper.GetRouteValueDictionary(), null)</td>
+    }
+    @foreach (var dynamicProperty in Model.DynamicPropertyIndexViewModels)
+    {
+        <td>
+            @Html.Partial("DynamicDisplayPartials/" + dynamicProperty.PartialViewName, (object)Model.Item, dynamicProperty.ToViewDataDictionary())
+        </td>
+    }
+</tr>

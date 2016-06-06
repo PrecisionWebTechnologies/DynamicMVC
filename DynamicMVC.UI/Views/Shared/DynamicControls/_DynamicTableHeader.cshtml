@@ -1,0 +1,13 @@
+@using DynamicMVC.UI.DynamicMVC.Helpers
+@model DynamicMVC.UI.DynamicMVC.ViewModels.DynamicControls.DynamicTableHeaderViewModel
+
+@if (Model.AllowSort)
+{
+    <th>
+        @Ajax.DynamicSortNameActionLink(Model.DisplayName, "Index", "_Index", Model.TypeName, Model.RouteValueDictionaryWrapper, new AjaxOptions() { UpdateTargetId = "ajaxtable" }, Model.SortExpression)
+    </th>
+}
+else
+{
+    <th>@Model.DisplayName</th>
+}

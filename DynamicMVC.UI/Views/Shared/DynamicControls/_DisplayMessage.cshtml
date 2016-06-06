@@ -1,0 +1,74 @@
+@using DatabaseManagerMVC.UI.DynamicMVC.ViewModels.DynamicControls
+@using DynamicMVC.Shared.Enums
+@model Boolean
+
+@{
+    MessageViewModel messageViewModel = null;
+    if (TempData.ContainsKey("Message"))
+    {
+        messageViewModel = (MessageViewModel) TempData["Message"];
+    }
+    if (ViewData.ContainsKey("Message"))
+    {
+        messageViewModel = (MessageViewModel)ViewData["Message"];
+    }
+}
+
+@if (messageViewModel != null)
+{
+    if (Model)
+    {
+        if (messageViewModel.MessageTypeEnum == MessageTypeEnum.Success)
+        {
+            <div class="alert alert-success" style="margin-top: 20px;">
+                @messageViewModel.Message
+            </div>
+        }
+        if (messageViewModel.MessageTypeEnum == MessageTypeEnum.Info)
+        {
+            <div class="alert alert-info" style="margin-top: 20px;">
+                @messageViewModel.Message
+            </div>
+        }
+        if (messageViewModel.MessageTypeEnum == MessageTypeEnum.Warning)
+        {
+            <div class="alert alert-warning" style="margin-top: 20px;">
+                @messageViewModel.Message
+            </div>
+        }
+        if (messageViewModel.MessageTypeEnum == MessageTypeEnum.Danger)
+        {
+            <div class="alert alert-danger" style="margin-top: 20px;">
+                @messageViewModel.Message
+            </div>
+        }
+    }
+    else
+    {
+        if (messageViewModel.MessageTypeEnum == MessageTypeEnum.Success)
+        {
+            <div class="alert alert-success">
+                @messageViewModel.Message
+            </div>
+        }
+        if (messageViewModel.MessageTypeEnum == MessageTypeEnum.Info)
+        {
+            <div class="alert alert-info">
+                @messageViewModel.Message
+            </div>
+        }
+        if (messageViewModel.MessageTypeEnum == MessageTypeEnum.Warning)
+        {
+            <div class="alert alert-warning">
+                @messageViewModel.Message
+            </div>
+        }
+        if (messageViewModel.MessageTypeEnum == MessageTypeEnum.Danger)
+        {
+            <div class="alert alert-danger">
+                @messageViewModel.Message
+            </div>
+        }
+    }
+}
+

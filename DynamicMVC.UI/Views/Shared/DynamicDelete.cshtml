@@ -1,0 +1,20 @@
+@model DynamicMVC.UI.DynamicMVC.ViewModels.DynamicDeleteViewModel
+
+<div class="container">
+    <div class="row">
+        <h1>@Model.Header</h1>
+    </div>
+</div>
+
+<div class="container">
+    @using (Html.BeginForm("Delete", Model.TypeName, new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("Id")
+        <p>Are you sure you want to delete this?</p>
+
+        <div class="row">
+            <button type="submit" class="btn btn-default">@Model.ButtonText</button>
+        </div>
+    }
+</div>

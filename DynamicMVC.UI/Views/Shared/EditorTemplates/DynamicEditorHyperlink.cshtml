@@ -1,0 +1,27 @@
+@using DynamicMVC.UI.DynamicMVC.ViewModels.DynamicPropertyViewModels
+@model object
+@{
+    var dynamicPropertyViewModel = (DynamicPropertyEditorViewModel) ViewData["DynamicPropertyEditorViewModel"];
+    var dynamicHyperlinkViewModel = dynamicPropertyViewModel.DynamicEditorHyperlinkViewModel;
+    var showHyperLink = dynamicHyperlinkViewModel != null;
+    if (!string.IsNullOrWhiteSpace(dynamicPropertyViewModel.DisplayName) && ViewData.ModelMetadata.DisplayName == null)
+    {
+        ViewData.ModelMetadata.DisplayName = dynamicPropertyViewModel.DisplayName;
+    }
+}
+<div class="form-group">
+    @Html.LabelFor(m => m)
+    <div class="">
+        @if (showHyperLink)
+        {
+            @Html.ActionLink(dynamicHyperlinkViewModel.DisplayName, dynamicHyperlinkViewModel.ActionName, dynamicHyperlinkViewModel.ControllerName, dynamicHyperlinkViewModel.RouteValueDictionaryWrapper.GetRouteValueDictionary(), null)
+            @Html.ValidationMessageFor(m => m)
+        }
+    </div>
+</div>
+
+
+
+
+
+

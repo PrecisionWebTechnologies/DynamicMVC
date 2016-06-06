@@ -1,0 +1,49 @@
+@using DynamicMVC.UI.DynamicMVC.Helpers
+@model DynamicMVC.UI.DynamicMVC.ViewModels.DynamicIndexMobileItemViewModel
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @if (Model.DefaultDynamicPropertyViewModel != null)
+        {
+            @Html.Partial("DynamicDisplayPartials/" + Model.DefaultDynamicPropertyViewModel.PartialViewName, (object)Model.Item, Model.DefaultDynamicPropertyViewModel.ToViewDataDictionary())
+        }
+        else
+        {
+            @(Model.EntityName + " Details")
+        }
+    </div>
+    <div class="panel-body">
+        @foreach (var dynamicProperty in Model.DynamicPropertyIndexViewModels)
+        {
+            <div class="row">
+                <div class="col-xs-5">
+                    @if (dynamicProperty.AllowSort)
+                    {
+                        @Ajax.DynamicSortNameActionLink(dynamicProperty.DisplayName, "Index", "_Index", Model.TypeName, Model.RouteValueDictionaryWrapper, new AjaxOptions() {UpdateTargetId = "ajaxtable"}, dynamicProperty.SortExpression)
+                    }
+                    else
+                    {
+                        @dynamicProperty.DisplayName
+                    }
+                </div>
+                <div class="col-xs-7">
+                    @Html.Partial("DynamicDisplayPartials/" + dynamicProperty.PartialViewName, (object)Model.Item, dynamicProperty.ToViewDataDictionary())
+                </div>
+            </div>
+        }
+    </div>
+    <div class="panel-footer">
+        @if (Model.ShowEdit)
+        {
+            @Html.ActionLink("Edit", "Edit", Model.TypeName, Model.RouteValueDictionaryWrapper.GetRouteValueDictionary(), null)
+        }
+        @if (Model.ShowDetails)
+        {
+            @Html.ActionLink("Details", "Details", Model.TypeName, Model.RouteValueDictionaryWrapper.GetRouteValueDictionary(), null)
+        }
+        @if (Model.ShowDelete)
+        {
+            @Html.ActionLink("Delete", "Delete", Model.TypeName, Model.RouteValueDictionaryWrapper.GetRouteValueDictionary(), null)
+        }
+    </div>
+</div>

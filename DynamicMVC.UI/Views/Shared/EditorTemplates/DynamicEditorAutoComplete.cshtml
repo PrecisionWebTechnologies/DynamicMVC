@@ -1,0 +1,18 @@
+@using DynamicMVC.UI.DynamicMVC
+@using DynamicMVC.UI.DynamicMVC.Helpers
+@using DynamicMVC.UI.DynamicMVC.ViewModels.DynamicPropertyViewModels
+
+@model object
+
+@{
+    var dynamicPropertyEditorViewModel = (DynamicPropertyEditorViewModel)ViewData["DynamicPropertyEditorViewModel"];
+    var dynamicEditorAutoCompleteViewModel = dynamicPropertyEditorViewModel.DynamicEditorAutoCompleteViewModel;
+}
+
+<div class="form-group">
+    @Html.DynamicLabelFor(m => m, dynamicPropertyEditorViewModel)
+    <div class="">
+        @* ReSharper disable once UnknownCssClass *@
+        @Html.TextBoxFor(m => m, new { @class = "autocomplete", @style = "width : 280px;", data_url = @Url.Action("AutoComplete", @dynamicEditorAutoCompleteViewModel.TypeName), data_default = @dynamicEditorAutoCompleteViewModel.SelectedText, data_id = dynamicPropertyEditorViewModel.PropertyName })
+    </div>
+</div>

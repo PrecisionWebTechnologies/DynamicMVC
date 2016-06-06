@@ -1,0 +1,15 @@
+@using DynamicMVC.UI.DynamicMVC.ViewModels.DynamicPropertyViewModels
+@model object
+@{
+    var dynamicPropertyViewModel = (DynamicPropertyEditorViewModel)ViewData["DynamicPropertyEditorViewModel"];
+}
+<div class="form-group">
+    @Html.LabelFor(m => m)
+    <div class="">
+        @Html.TextBoxFor(m => m, new { @class = "form-control", @readonly = "readonly" })
+    </div>
+</div>
+
+
+
+

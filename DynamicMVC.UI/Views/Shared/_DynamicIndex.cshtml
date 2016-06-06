@@ -1,0 +1,59 @@
+@using DynamicMVC.UI.DynamicMVC.Helpers
+@model DynamicMVC.UI.DynamicMVC.ViewModels.DynamicIndexPageViewModel
+
+<div class="row">
+    <div class="col-xs-6">
+        @if (Model.ShowCreate)
+        {
+            @Html.ActionLink(Model.CreateNewLinkText, "Create", @Model.TypeName, Model.RouteValueDictionaryWrapper, null)
+        }
+    </div>
+    <div class="col-xs-6 visible-xs">
+        @if (Model.AllowSort)
+        {
+            <div style="float: right;">
+                @Ajax.DynamicSortNameActionLink("(order by " + Model.DefaultPropertyName + ")", "Index", "_Index", Model.TypeName, Model.RouteValueDictionaryWrapper, new AjaxOptions() { UpdateTargetId = "ajaxtable" }, Model.DefaultPropertySortExpression)
+            </div>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="table-responsive hidden-xs">
+        <table class="table table-striped table-bordered table-condensed">
+            <tr>
+                @Html.Partial("Partials/_DynamicIndexHeader", Model)
+            </tr>
+            @foreach (var item in Model.DynamicIndexItemViewModels)
+            {
+                @Html.Partial("Partials/_DynamicIndexItem", item)
+            }
+            <tr>
+                <td colspan="100">
+                    <span id="DesktopPagingMessage">@Model.PagingMessage</span>
+                </td>
+            </tr>
+        </table>
+        <ul class="pager">
+            <li id="desktopPrevious" class="@Model.PreviousClassName">
+                @Html.Partial("DynamicControls/_PreviousDesktopButton", Model)
+            </li>
+            <li id="desktopNext" class="@Model.NextClassName">
+                @Html.Partial("DynamicControls/_NextDesktopButton")
+            </li>
+        </ul>
+    </div>
+
+    <div class="panel-group col-sm-12 visible-xs">
+        @foreach (var item in Model.DynamicIndexMobileItemViewModels)
+        {
+            @Html.Partial("Partials/_DynamicIndexMobileItem", item)
+        }
+    </div>
+</div>
+
+<script>
+    $(document).ready(
+        UpdateMobileIndexView
+    );
+</script>

@@ -1,0 +1,16 @@
+@model DynamicMVC.UI.DynamicMVC.ViewModels.DynamicFilterViewModels.DynamicFilterDateRangeViewModel
+
+<div class="form-group">
+    @Html.Label(Model.StartQueryStringName, Model.StartLabelText)
+    <div class="form-group">
+        @Html.TextBox(Model.StartQueryStringName, Model.StartFilterValue, new { @class = "datepicker form-control", @style = "width : 175px;" })
+        @Html.ValidationMessage(Model.StartQueryStringName)
+    </div>
+</div>
+<div class="form-group">
+    @Html.Label(Model.EndQueryStringName, Model.EndLabelText)
+    <div class="form-group">
+        @Html.TextBox(Model.EndQueryStringName, Model.EndFilterValue, new { @class = "datepicker form-control", @style = "width : 175px;" })
+        @Html.ValidationMessage(Model.EndQueryStringName)
+    </div>
+</div>

@@ -1,0 +1,7 @@
+@using DynamicMVC.UI.DynamicMVC.Extensions
+@model DynamicMVC.UI.DynamicMVC.ViewModels.DynamicIndexViewModel
+
+@Ajax.ActionLink("Next", "Index", Model.TypeName, Model.RouteValueDictionaryWrapper.CloneAndAddPage(1).GetRouteValueDictionary()
+                                      , new AjaxOptions { UpdateTargetId = "ajaxtable", Url = Url.Action("_Index", Model.TypeName, Model.RouteValueDictionaryWrapper.CloneAndAddPage(1).GetRouteValueDictionary()) }
+                                      , new { @class = "btn btn-primary pull-right", @style = "vertical-align: bottom;", @id = "mobileNext" })
+

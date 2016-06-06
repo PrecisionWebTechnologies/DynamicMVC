@@ -1,0 +1,6 @@
+@model IEnumerable<DynamicMVC.DynamicEntityMetadataLibrary.Models.DynamicMethod>
+    
+@foreach (var method in Model)
+{
+    <button type="submit" class="btn btn-default" name="submitType" value="@method.SubmitValue">@method.ButtonText</button>
+}

@@ -1,0 +1,13 @@
+@model DynamicMVC.UI.DynamicMVC.ViewModels.DynamicFilterViewModels.DynamicFilterDropDownViewModel
+
+<div class="form-group">
+    @Html.Label(Model.PropertyName, Model.LabelText)
+    <div class="form-group">
+        @Html.DropDownList(Model.PropertyName, Model.SelectList, new { @class = "form-control" })
+        @Html.ValidationMessage(Model.PropertyName)
+    </div>
+</div>
+
+
+
+

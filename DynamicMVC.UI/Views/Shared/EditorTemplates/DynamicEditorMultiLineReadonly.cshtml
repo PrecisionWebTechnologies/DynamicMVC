@@ -1,0 +1,9 @@
+@model object
+
+<div class="form-group">
+    @Html.LabelFor(m => m)
+    <div class="">
+        @Html.TextAreaFor(m => m, new { @class = "form-control", rows = 5, @readonly = "readonly" })
+    </div>
+</div>
+

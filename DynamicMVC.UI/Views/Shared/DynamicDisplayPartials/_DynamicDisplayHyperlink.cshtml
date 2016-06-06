@@ -1,0 +1,11 @@
+@using DynamicMVC.UI.DynamicMVC.ViewModels.DynamicPropertyViewModels
+
+@{
+    var dynamicPropertyViewModel = (DynamicPropertyIndexViewModel)ViewData["DynamicPropertyViewModel"];
+    var dynamicHyperlinkViewModel = dynamicPropertyViewModel.DynamicEditorHyperlinkViewModel;
+    var showHyperLink = dynamicHyperlinkViewModel != null;
+}
+@if (showHyperLink)
+{
+    @Html.ActionLink(dynamicHyperlinkViewModel.DisplayName, dynamicHyperlinkViewModel.ActionName, dynamicHyperlinkViewModel.ControllerName, dynamicHyperlinkViewModel.RouteValueDictionaryWrapper.GetRouteValueDictionary(), null)
+}

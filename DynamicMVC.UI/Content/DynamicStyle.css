@@ -1,0 +1,15 @@
+﻿/*Custom css for filter panel on mobile index view*/
+.panel-info > .panel-footer {
+    color: white;
+    background-color: #428bca;
+    border-color: #bce8f1;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.panel-heading span {
+    margin-top: -20px;
+    font-size: 15px;
+}
