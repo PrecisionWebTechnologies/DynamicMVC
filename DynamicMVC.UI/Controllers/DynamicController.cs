@@ -25,7 +25,6 @@ namespace DynamicMVC.UI.Controllers
                 _requestManager.AddPagingParameters(defaultOrderBy, 1, 10, KeyName);
                 return RedirectToAction("Index", TypeName, _requestManager.RouteValueDictionaryWrapper().GetRouteValueDictionary());
             }
-
             var viewModel = _dynamicIndexViewModelBuilder.Build(DynamicEntityMetadata);
             return View("DynamicIndex", viewModel);
         }
