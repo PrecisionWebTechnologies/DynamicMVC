@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace ReflectionLibrary.Interfaces
@@ -6,15 +5,27 @@ namespace ReflectionLibrary.Interfaces
     /// <summary>
     /// Shows all information for a given type
     /// </summary>
-    public interface IReflectedClass : IEntityWithAttributes
+    public interface IReflectedClass : IReflectedObjectWithAttributes
     {
         /// <summary>
-        /// TypeName
+        /// Reflects each property of the underlying class
         /// </summary>
-        string Name { get; set; }
-        ICollection<Attribute> Attributes { get; set; }
         ICollection<IReflectedProperty> ReflectedProperties { get; set; }
+
+        /// <summary>
+        /// Reflected values for each method on the underlying class
+        /// </summary>
         ICollection<IReflectedMethod> ReflectedMethods { get; set; }
+
+        /// <summary>
+        /// Operations that cannot be easily mocked in testing.  These operations require the underlying to be defined.
+        /// </summary>
+        IReflectedClassOperations ReflectedClassOperations { get; set; }
+
+        /// <summary>
+        /// Merge attributes from another reflected class.
+        /// </summary>
+        /// <param name="reflectedClass"></param>
         void MergeAttributes(IReflectedClass reflectedClass);
     }
 }

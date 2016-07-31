@@ -62,19 +62,20 @@
     <Compile Include="Builders\DynamicPropertyMetadataBuilder.cs" />
     <Compile Include="DynamicEntityMetadataManager.cs" />
     <Compile Include="Interfaces\IDynamicEntityMetadataBuilder.cs" />
-    <Compile Include="Interfaces\IDynamicEntityMetadataBuilderHelper.cs" />
     <Compile Include="Interfaces\IDynamicEntityMetadataManager.cs" />
     <Compile Include="Interfaces\IDynamicEntityMetadataPropertyFixup.cs" />
     <Compile Include="Interfaces\IDynamicEntityMetadataValidator.cs" />
     <Compile Include="Interfaces\IDynamicMethodInvoker.cs" />
     <Compile Include="Interfaces\IDynamicMethodManager.cs" />
     <Compile Include="Interfaces\IDynamicOperationManager.cs" />
-    <Compile Include="Interfaces\IDynamicPropertyMetadataBuilder.cs" />
-    <Compile Include="Interfaces\IDynamicPropertyMetadataBuilderHelper.cs" />
     <Compile Include="Interfaces\INavigationPropertyManager.cs" />
+    <Compile Include="Interfaces\IReflectedDynamicClass.cs" />
+    <Compile Include="Interfaces\IDynamicPropertyMetadataBuilder.cs" />
     <Compile Include="Managers\DynamicMethodManager.cs" />
     <Compile Include="Managers\DynamicOperationManager.cs" />
+    <Compile Include="Interfaces\IReflectionManager.cs" />
     <Compile Include="Managers\NavigationPropertyManager.cs" />
+    <Compile Include="Managers\ReflectionManager.cs" />
     <Compile Include="Models\DynamicCollectionEntityPropertyMetadata.cs" />
     <Compile Include="Models\DynamicComplexPropertyMetadata.cs" />
     <Compile Include="Models\DynamicEntityMetadata.cs" />
@@ -83,21 +84,12 @@
     <Compile Include="Models\DynamicMethod.cs" />
     <Compile Include="Models\DynamicOperation.cs" />
     <Compile Include="Models\DynamicPropertyMetadata.cs" />
+    <Compile Include="Models\ReflectedDynamicClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Strategies\DynamicEntityMetadataBuilderHelper\ControllerInfoBuilderHelper.cs" />
-    <Compile Include="Strategies\DynamicEntityMetadataBuilderHelper\CrudPropertiesBuilderHelper.cs" />
-    <Compile Include="Strategies\DynamicEntityMetadataBuilderHelper\DefaultPropertyBuilderHelper.cs" />
-    <Compile Include="Strategies\DynamicEntityMetadataBuilderHelper\DynamicMenuBuilderHelper.cs" />
-    <Compile Include="Strategies\DynamicEntityMetadataBuilderHelper\DynamicMethodsBuilderHelper.cs" />
-    <Compile Include="Strategies\DynamicEntityMetadataBuilderHelper\HeaderBuilderHelper.cs" />
-    <Compile Include="Strategies\DynamicEntityMetadataBuilderHelper\IncludesBuilderHelper.cs" />
-    <Compile Include="Strategies\DynamicEntityMetadataBuilderHelper\KeyPropertyBuilderHelper.cs" />
     <Compile Include="Strategies\DynamicEntityMetadataFixups\DynamicCollectionEntityPropertyMetadataFixup.cs" />
     <Compile Include="Strategies\DynamicEntityMetadataFixups\DynamicComplexEntityPropertyMetadataFixup.cs" />
     <Compile Include="Strategies\DynamicEntityMetadataFixups\DynamicForiegnKeyPropertyMetadataFixup.cs" />
     <Compile Include="Strategies\DynamicEntityMetadataValidators\CRUDPropertiesValidator.cs" />
-    <Compile Include="Strategies\DynamicPropertyMetadataBuilderHelper\SetDisplayName.cs" />
-    <Compile Include="Strategies\DynamicPropertyMetadataBuilderHelper\SetScaffoldProperty.cs" />
     <Compile Include="UnityConfig.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -109,10 +101,6 @@
       <Project>{88a8dcd2-d8bc-436d-9fa0-38d37cb684c7}</Project>
       <Name>DynamicMVC.Annotations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DynamicMVC.EntityMetadataLibrary\DynamicMVC.EntityMetadataLibrary.csproj">
-      <Project>{109874a7-50ba-49b5-97c0-fc36943928cb}</Project>
-      <Name>DynamicMVC.EntityMetadataLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DynamicMVC.Shared\DynamicMVC.Shared.csproj">
       <Project>{f6b9a40f-e5ee-4f49-a94a-1287991dfa63}</Project>
       <Name>DynamicMVC.Shared</Name>
@@ -121,6 +109,10 @@
       <Project>{2aa70f62-1b8e-470e-93be-b5db70fdc2d9}</Project>
       <Name>ReflectionLibrary</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Strategies\DynamicEntityMetadataBuilderHelper\" />
+    <Folder Include="Strategies\DynamicPropertyMetadataBuilderHelper\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

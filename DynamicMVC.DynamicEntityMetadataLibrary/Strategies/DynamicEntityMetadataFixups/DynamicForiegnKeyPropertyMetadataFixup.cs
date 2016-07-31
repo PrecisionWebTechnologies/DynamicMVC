@@ -23,12 +23,12 @@ namespace DynamicMVC.DynamicEntityMetadataLibrary.Strategies.DynamicEntityMetada
             {
                 foreach (var dynamicProperty in dynamicEntityMetadata.DynamicPropertyMetadatas.OfType<DynamicForiegnKeyPropertyMetadata>())
                 {
-                    dynamicProperty.ComplexEntityPropertyMetadata = dynamicEntityMetadata.DynamicPropertyMetadatas.Single(x => x.IsComplexEntity && _namingConventionManager.GetForiegnKeyByComplexProperty(dynamicEntityMetadata.TypeName, x.PropertyName) == dynamicProperty.PropertyName);
+                    dynamicProperty.ComplexEntityPropertyMetadata = dynamicEntityMetadata.DynamicPropertyMetadatas.Single(x => x.IsDynamicEntity() && _namingConventionManager.GetForiegnKeyByComplexProperty(dynamicEntityMetadata.TypeName(), x.PropertyName()) == dynamicProperty.PropertyName());
                 }
                 
                 foreach (var dynamicProperty in dynamicEntityMetadata.DynamicPropertyMetadatas.OfType<DynamicForiegnKeyPropertyMetadata>())
                 {
-                    dynamicProperty.ComplexDynamicEntityMetadata = dynamicEntityMetadatas.Single(x => x.TypeName == dynamicProperty.ComplexEntityPropertyMetadata.TypeName);
+                    dynamicProperty.ComplexDynamicEntityMetadata = dynamicEntityMetadatas.Single(x => x.TypeName() == dynamicProperty.ComplexEntityPropertyMetadata.TypeName());
                 }
             }
         }

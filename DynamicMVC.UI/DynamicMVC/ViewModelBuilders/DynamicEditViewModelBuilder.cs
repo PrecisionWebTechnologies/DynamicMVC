@@ -31,8 +31,8 @@ namespace DynamicMVC.UI.DynamicMVC.ViewModelBuilders
         public DynamicEditViewModel Build(DynamicEntityMetadata dynamicEntityMetadata, dynamic editModel, string returnUrl)
         {
             var dynamicEditViewModel = new DynamicEditViewModel();
-            dynamicEditViewModel.Header = dynamicEntityMetadata.EditHeader;
-            dynamicEditViewModel.TypeName = dynamicEntityMetadata.TypeName;
+            dynamicEditViewModel.Header = dynamicEntityMetadata.EditHeader();
+            dynamicEditViewModel.TypeName = dynamicEntityMetadata.TypeName();
             dynamicEditViewModel.ReturnUrl = returnUrl;
             dynamicEditViewModel.Item = editModel;
             dynamicEditViewModel.DynamicUIMethods = dynamicEntityMetadata.GetDynamicMethods(TemplateTypeEnum.Edit).ToList();
@@ -57,7 +57,7 @@ namespace DynamicMVC.UI.DynamicMVC.ViewModelBuilders
             {
                 _dynamicPropertyEditorViewModels = new List<DynamicPropertyEditorViewModel>();
                 var viewProperties = GetViewProperties(dynamicEntityMetadata);
-                viewProperties = viewProperties.Where(x => x.IsSimple).ToList(); //this view only shows simple properties
+                viewProperties = viewProperties.Where(x => x.IsSimple()).ToList(); //this view only shows simple properties
                 foreach (var dynamicPropertyMetadata in viewProperties)
                 {
                     var dynamicPropertyEditorViewModel = _dynamicPropertyViewModelBuilder.BuildDynamicPropertyEditorViewModelForEdit(dynamicPropertyMetadata);
@@ -82,7 +82,7 @@ namespace DynamicMVC.UI.DynamicMVC.ViewModelBuilders
         /// <returns></returns>
         public IEnumerable<DynamicPropertyMetadata> GetViewProperties(DynamicEntityMetadata dynamicEntityMetadata)
         {
-            var dynamicPropertyMetadatas = dynamicEntityMetadata.ScaffoldEditProperties;
+            var dynamicPropertyMetadatas = dynamicEntityMetadata.ScaffoldEditProperties();
             var viewProperties = _requestManager.ViewProperties();
             if (!string.IsNullOrWhiteSpace(viewProperties))
                 dynamicPropertyMetadatas = _propertyFilterManager.FilterAndOrderProperties(dynamicPropertyMetadatas, viewProperties).ToList();

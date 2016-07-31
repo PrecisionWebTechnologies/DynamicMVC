@@ -6,7 +6,7 @@ namespace ReflectionLibrary.Interfaces
     /// <summary>
     /// Shows All Information for MethodInfo
     /// </summary>
-    public interface IReflectedMethod : IEntityWithAttributes
+    public interface IReflectedMethod : IReflectedObjectWithAttributes
     {
         /// <summary>
         /// Method Name
@@ -21,6 +21,6 @@ namespace ReflectionLibrary.Interfaces
         /// </summary>
         ICollection<Attribute> Attributes { get; set; }
 
-        Func<object, object[], object> InvokeFunction { get; set; }
+        IReflectedMethodOperations ReflectedMethodOperations { get; set; }
     }
 }

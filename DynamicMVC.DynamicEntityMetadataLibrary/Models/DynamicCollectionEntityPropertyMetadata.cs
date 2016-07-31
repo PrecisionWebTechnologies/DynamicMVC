@@ -1,15 +1,16 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using DynamicMVC.EntityMetadataLibrary.Models;
+using ReflectionLibrary.Extensions;
+using ReflectionLibrary.Interfaces;
 
 namespace DynamicMVC.DynamicEntityMetadataLibrary.Models
 {
     public class DynamicCollectionEntityPropertyMetadata : DynamicPropertyMetadata
     {
-        public DynamicCollectionEntityPropertyMetadata(EntityPropertyMetadata entityPropertyMetadata)
-            : base(entityPropertyMetadata)
+        public DynamicCollectionEntityPropertyMetadata(IReflectedProperty reflectedProperty, IEnumerable<IReflectedClass> reflectedClasses)
+            : base(reflectedProperty, reflectedClasses)
         {
-            var inversePropertyAttribute = entityPropertyMetadata.EntityPropertyAttributes.OfType<InversePropertyAttribute>().FirstOrDefault();
+            var inversePropertyAttribute = reflectedProperty.GetAttribute<InversePropertyAttribute>();
             if (inversePropertyAttribute != null)
                 InverseProperty = inversePropertyAttribute.Property;
         }

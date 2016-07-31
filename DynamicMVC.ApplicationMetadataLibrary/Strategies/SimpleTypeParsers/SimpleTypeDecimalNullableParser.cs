@@ -2,6 +2,7 @@ using System;
 using DynamicMVC.ApplicationMetadataLibrary.Interfaces;
 using DynamicMVC.Shared.Enums;
 using DynamicMVC.Shared.Interfaces;
+using ReflectionLibrary.Enums;
 
 namespace DynamicMVC.ApplicationMetadataLibrary.Strategies.SimpleTypeParsers
 {
@@ -22,7 +23,7 @@ namespace DynamicMVC.ApplicationMetadataLibrary.Strategies.SimpleTypeParsers
 
         public SimpleTypeEnum SimpleTypeEnum()
         {
-            return Shared.Enums.SimpleTypeEnum.DecimalNullable;
+            return ReflectionLibrary.Enums.SimpleTypeEnum.DecimalNullable;
         }
     }
 }

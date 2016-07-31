@@ -4,21 +4,36 @@ using System.Linq;
 using ReflectionLibrary.Interfaces;
 using System.Reflection;
 using Microsoft.Practices.ObjectBuilder2;
-#pragma warning disable 1591
 
 namespace ReflectionLibrary.Builders
 {
+    /// <summary>
+    /// Class used to define how to construct a ReflectedMethod class
+    /// </summary>
     public class ReflectedMethodBuilder : IReflectedMethodBuilder
     {
         private readonly Func<IReflectedMethod> _reflectedMethodFunction;
         private readonly ICustomAttributeProviderManager _customAttributeProviderManager;
+        private readonly Func<IReflectedMethodOperations> _reflectedMethodOperationsResolver;
 
-        public ReflectedMethodBuilder(Func<IReflectedMethod> reflectedMethodFunction, ICustomAttributeProviderManager customAttributeProviderManager)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="reflectedMethodFunction"></param>
+        /// <param name="customAttributeProviderManager"></param>
+        /// <param name="reflectedMethodOperationsResolver"></param>
+        public ReflectedMethodBuilder(Func<IReflectedMethod> reflectedMethodFunction, ICustomAttributeProviderManager customAttributeProviderManager, Func<IReflectedMethodOperations> reflectedMethodOperationsResolver)
         {
             _reflectedMethodFunction = reflectedMethodFunction;
             _customAttributeProviderManager = customAttributeProviderManager;
+            _reflectedMethodOperationsResolver = reflectedMethodOperationsResolver;
         }
 
+        /// <summary>
+        /// Builds a ReflectedMethod class
+        /// </summary>
+        /// <param name="reflectedClass"></param>
+        /// <param name="type"></param>
         public void BuildReflectedMethods(IReflectedClass reflectedClass, Type type)
         {
             foreach (var methodInfo in type
@@ -28,14 +43,21 @@ namespace ReflectionLibrary.Builders
                 var reflectedMethod = _reflectedMethodFunction();
 
                 reflectedMethod.Name = methodInfo.Name;
-                reflectedMethod.InvokeFunction = methodInfo.Invoke;
-
                 methodInfo.GetCustomAttributes().ToList().ForEach(a => reflectedMethod.Attributes.Add(a));
                 reflectedClass.ReflectedMethods.Add(reflectedMethod);
                 reflectedMethod.ReflectedClass = reflectedClass;
+
+                reflectedMethod.ReflectedMethodOperations = _reflectedMethodOperationsResolver();
+                reflectedMethod.ReflectedMethodOperations.InvokeFunction = methodInfo.Invoke;
+                reflectedMethod.ReflectedMethodOperations.MethodInfo = methodInfo;
             }
         }
 
+        /// <summary>
+        /// Builds a Reflected Method Class
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public ICollection<IReflectedMethod> BuildReflectedMethods(Type type)
         {
             var reflectedMethods = new List<IReflectedMethod>();
@@ -46,7 +68,9 @@ namespace ReflectionLibrary.Builders
                 var reflectedMethod = _reflectedMethodFunction();
 
                 reflectedMethod.Name = methodInfo.Name;
-                reflectedMethod.InvokeFunction = methodInfo.Invoke;
+                reflectedMethod.ReflectedMethodOperations = _reflectedMethodOperationsResolver();
+                reflectedMethod.ReflectedMethodOperations.InvokeFunction = methodInfo.Invoke;
+                reflectedMethod.ReflectedMethodOperations.MethodInfo = methodInfo;
 
                 _customAttributeProviderManager.GetAttributes(methodInfo).ForEach(a => reflectedMethod.Attributes.Add(a));
 

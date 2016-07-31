@@ -27,15 +27,15 @@ namespace DynamicMVC.UI.DynamicMVC.Strategies.DynamicEditorModelBuilders
         {
             var dynamicForiegnKeyPropertyMetadata = ((DynamicForiegnKeyPropertyMetadata)dynamicPropertyMetadata);
             var dynamicEditorAutoCompleteViewModel = new DynamicEditorAutoCompleteViewModel();
-            var type = dynamicForiegnKeyPropertyMetadata.ComplexDynamicEntityMetadata.EntityType;
-            var dataTextField = dynamicForiegnKeyPropertyMetadata.ComplexDynamicEntityMetadata.DefaultProperty.PropertyName;
+            var type = dynamicForiegnKeyPropertyMetadata.ComplexDynamicEntityMetadata.EntityTypeFunction()();
+            var dataTextField = dynamicForiegnKeyPropertyMetadata.ComplexDynamicEntityMetadata.DefaultProperty().PropertyName();
             dynamicEditorAutoCompleteViewModel.TypeName = type.Name;
 
-            var value = dynamicPropertyMetadata.GetValueFunction(item);
+            var value = dynamicPropertyMetadata.ReflectedProperty.ReflectedPropertyOperations.GetValueFunction(item);
             dynamicEditorAutoCompleteViewModel.SelectedText = GetSelectItemText(type, value, dataTextField);
             dynamicPropertyViewModel.DynamicEditorAutoCompleteViewModel = dynamicEditorAutoCompleteViewModel;
 
-            dynamicPropertyViewModel.DisplayName = dynamicForiegnKeyPropertyMetadata.ComplexEntityPropertyMetadata.PropertyName;
+            dynamicPropertyViewModel.DisplayName = dynamicForiegnKeyPropertyMetadata.ComplexEntityPropertyMetadata.PropertyName();
         }
 
         public string GetSelectItemText(Type type, dynamic value, string textFieldName)

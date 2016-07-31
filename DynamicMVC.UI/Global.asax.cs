@@ -28,11 +28,13 @@ namespace DynamicMVC.UI
             Shared.UnityConfig.RegisterTypes(mvcContainer);
 
             //Register
-            DynamicMVCUnityConfig.RegisterTypes(Container.GetConfiguredContainer());
+            var sharedContainer = Container.GetConfiguredContainer();
+            DynamicMVCUnityConfig.RegisterTypes(sharedContainer);
             UnityConfig.RegisterTypes(Container.GetConfiguredContainer());
             ICreateDbContextManager createDbContextManager = new CreateDbContextManager(() => new Models.ApplicationDbContext());
             Container.RegisterInstance(createDbContextManager);
             var applicationMetadataProvider = new ApplicationMetadataProvider(typeof(MvcApplication).Assembly, typeof(MvcApplication).Assembly, typeof(MvcApplication).Assembly);
+
             Container.RegisterInstance<IApplicationMetadataProvider>(applicationMetadataProvider);
             DynamicMVCContext.DynamicMvcManager = Container.Resolve<IDynamicMvcManager>();
             Container.RegisterInstance(DynamicMVCContext.DynamicMvcManager);

@@ -36,7 +36,7 @@
                             <ul class="dropdown-menu">
                                 @foreach (var childMenuViewModel in menuItemViewModel.DynamicMenuItemViewModels)
                                 {
-                                    <li><a href="@Url.Action("Index", childMenuViewModel.DynamicEntityMetadata.TypeName)">@(childMenuViewModel.DisplayName)</a></li>
+                                    <li><a href="@Url.Action("Index", childMenuViewModel.DynamicEntityMetadata.TypeName())">@(childMenuViewModel.DisplayName)</a></li>
                                 }
                             </ul>
                         </li>

@@ -1,5 +1,6 @@
 using System;
 using DynamicMVC.Shared.Enums;
+using ReflectionLibrary.Enums;
 
 namespace DynamicMVC.ApplicationMetadataLibrary.Interfaces
 {

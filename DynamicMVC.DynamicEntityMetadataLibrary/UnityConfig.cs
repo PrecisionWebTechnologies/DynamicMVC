@@ -1,8 +1,10 @@
 using DynamicMVC.DynamicEntityMetadataLibrary.Builders;
 using DynamicMVC.DynamicEntityMetadataLibrary.Interfaces;
 using DynamicMVC.DynamicEntityMetadataLibrary.Managers;
+using DynamicMVC.DynamicEntityMetadataLibrary.Models;
 using DynamicMVC.Shared.Extensions;
 using Microsoft.Practices.Unity;
+using ReflectionLibrary.Interfaces;
 
 namespace DynamicMVC.DynamicEntityMetadataLibrary
 {
@@ -14,17 +16,17 @@ namespace DynamicMVC.DynamicEntityMetadataLibrary
         /// change the defaults), as Unity allows resolving a concrete type even if it was not previously registered.</remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
-            EntityMetadataLibrary.UnityConfig.RegisterTypes(container);
             container.RegisterType<IDynamicEntityMetadataManager, DynamicEntityMetadataManager>();
             container.RegisterType<IDynamicEntityMetadataBuilder, DynamicEntityMetadataBuilder>();
             container.RegisterType<INavigationPropertyManager, NavigationPropertyManager>();
-            container.RegisterCollection<IDynamicEntityMetadataBuilderHelper>();
             container.RegisterCollection<IDynamicEntityMetadataPropertyFixup>();
             container.RegisterType<IDynamicPropertyMetadataBuilder, DynamicPropertyMetadataBuilder>();
-            container.RegisterCollection<IDynamicPropertyMetadataBuilderHelper>();
             container.RegisterCollection<IDynamicEntityMetadataValidator>();
             container.RegisterType<IDynamicMethodManager, DynamicMethodManager>();
             container.RegisterType<IDynamicOperationManager, DynamicOperationManager>();
+            container.RegisterType<IReflectedClass, ReflectedDynamicClass>();
+            container.RegisterType<IReflectedDynamicClass, ReflectedDynamicClass>();
+            container.RegisterType<IReflectionManager, ReflectionManager>();
         }
     }
 }

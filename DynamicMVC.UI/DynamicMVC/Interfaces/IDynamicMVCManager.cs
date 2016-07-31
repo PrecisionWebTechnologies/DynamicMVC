@@ -65,7 +65,6 @@ namespace DynamicMVC.UI.DynamicMVC.Interfaces
         /// <param name="includes"></param>
         void LoadCreateIncludes(DynamicEntityMetadataLibrary.Models.DynamicEntityMetadata dynamicEntityMetadata, dynamic item, IDynamicRepository dynamicRepository, params string[] includes);
 
-        void RegisterDynamicMvc(IEnumerable<EntityMetadataLibrary.Models.EntityMetadata> entityMetadatas);
         DynamicMVCContextOptions Options { get; }
     }
 }

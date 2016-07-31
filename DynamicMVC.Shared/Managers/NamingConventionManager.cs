@@ -17,6 +17,12 @@ namespace DynamicMVC.Shared.Managers
             return type.Name.ToUpper().EndsWith("CONTROLLER");
         }
 
+        /// <summary>
+        /// Performs a case insenstive search for controller name.
+        /// </summary>
+        /// <param name="controllerNames">Controller names in the project</param>
+        /// <param name="typeName">Dynamimc Entity Type Name</param>
+        /// <returns>Returns controller name with origonal casing.</returns>
         public string FindControllerName(IEnumerable<string> controllerNames, string typeName)
         {
             var dictionary = new Dictionary<string, string>();

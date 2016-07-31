@@ -75,10 +75,6 @@
       <Project>{88a8dcd2-d8bc-436d-9fa0-38d37cb684c7}</Project>
       <Name>DynamicMVC.Annotations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DynamicMVC.EntityMetadataLibrary\DynamicMVC.EntityMetadataLibrary.csproj">
-      <Project>{109874a7-50ba-49b5-97c0-fc36943928cb}</Project>
-      <Name>DynamicMVC.EntityMetadataLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DynamicMVC.Shared\DynamicMVC.Shared.csproj">
       <Project>{f6b9a40f-e5ee-4f49-a94a-1287991dfa63}</Project>
       <Name>DynamicMVC.Shared</Name>

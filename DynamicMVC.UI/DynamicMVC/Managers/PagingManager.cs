@@ -28,7 +28,7 @@ namespace DynamicMVC.UI.DynamicMVC.Managers
             // ReSharper disable once PossibleMultipleEnumeration
             Filters = filters.ToList();
             // ReSharper disable once PossibleMultipleEnumeration
-            RecordCount = _dynamicRepository.GetRecordCount(dynamicEntityMetadata.EntityType, filters);
+            RecordCount = _dynamicRepository.GetRecordCount(dynamicEntityMetadata.EntityTypeFunction()(), filters);
         }
 
         public void ValidatePagingParameters(RouteValueDictionaryWrapper routeValueDictionaryWrapper)
@@ -44,7 +44,7 @@ namespace DynamicMVC.UI.DynamicMVC.Managers
         {
             var page = int.Parse(routeValueDictionaryWrapper.GetValue("Page").ToString());
             var pageSize = int.Parse(routeValueDictionaryWrapper.GetValue("PageSize").ToString());
-            return _dynamicRepository.GetItems(dynamicEntityMetadata.EntityType, Filters, page, pageSize, _requestManager.OrderBy(), dynamicEntityMetadata.ListIncludes.ToArray());
+            return _dynamicRepository.GetItems(dynamicEntityMetadata.EntityTypeFunction()(), Filters, page, pageSize, _requestManager.OrderBy(), dynamicEntityMetadata.ListIncludes().ToArray());
         }
         public string PreviousClassName(RouteValueDictionaryWrapper routeValueDictionaryWrapper)
         {

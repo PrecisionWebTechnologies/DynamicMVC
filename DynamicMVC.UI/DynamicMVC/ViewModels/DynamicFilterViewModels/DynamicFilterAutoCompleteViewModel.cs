@@ -34,12 +34,12 @@ namespace DynamicMVC.UI.DynamicMVC.ViewModels.DynamicFilterViewModels
             {
                 //this view model was created from a dynamicforiegnKeyPropertyMetadata
                 var dynamicForiegnKeyPropertyMetadata = (DynamicForiegnKeyPropertyMetadata) dynamicPropertyMetadata;
-                Type = dynamicForiegnKeyPropertyMetadata.ComplexDynamicEntityMetadata.EntityType;
-                DisplayMember = dynamicForiegnKeyPropertyMetadata.ComplexDynamicEntityMetadata.DefaultProperty.PropertyName;
-                ValueMember = dynamicForiegnKeyPropertyMetadata.ComplexDynamicEntityMetadata.KeyProperty.PropertyName;
+                Type = dynamicForiegnKeyPropertyMetadata.ComplexDynamicEntityMetadata.EntityTypeFunction()();
+                DisplayMember = dynamicForiegnKeyPropertyMetadata.ComplexDynamicEntityMetadata.DefaultProperty().PropertyName();
+                ValueMember = dynamicForiegnKeyPropertyMetadata.ComplexDynamicEntityMetadata.KeyProperty().PropertyName();
 
                 if (LabelText == PropertyName)
-                    LabelText = dynamicForiegnKeyPropertyMetadata.ComplexEntityPropertyMetadata.PropertyName;
+                    LabelText = dynamicForiegnKeyPropertyMetadata.ComplexEntityPropertyMetadata.PropertyName();
             }
             else
             {

@@ -5,6 +5,7 @@ using DynamicMVC.DynamicEntityMetadataLibrary.Models;
 using DynamicMVC.Shared.Enums;
 using DynamicMVC.UI.DynamicMVC.Extensions;
 using DynamicMVC.UI.DynamicMVC.Interfaces;
+using ReflectionLibrary.Enums;
 
 namespace DynamicMVC.UI.DynamicMVC.Managers
 {
@@ -43,14 +44,14 @@ namespace DynamicMVC.UI.DynamicMVC.Managers
             {
                 foreach (var key in QueryStringDictionary.GetKeys())
                 {
-                    var property = dynamicEntityMetadata.DynamicPropertyMetadatas.SingleOrDefault(x => x.PropertyName == key);
-                    if (property != null && property.IsSimple)
+                    var property = dynamicEntityMetadata.DynamicPropertyMetadatas.SingleOrDefault(x => x.PropertyName() == key);
+                    if (property != null && property.IsSimple())
                     {
                         var origonalValue = QueryStringDictionary.GetValue(key).ToString();
                         //There is an issue with html.checkbox helper.  It sends down true,false when checked
-                        if (property.SimpleTypeEnum == SimpleTypeEnum.Bool && origonalValue == "true,false")
+                        if (property.SimpleTypeEnum() == SimpleTypeEnum.Bool && origonalValue == "true,false")
                             origonalValue = "true";
-                        var parsedValue = property.ParseValue(origonalValue);
+                        var parsedValue = property.ParseValue()(origonalValue);
                         QueryStringDictionary.SetValue(key, parsedValue);
                     }
                 }

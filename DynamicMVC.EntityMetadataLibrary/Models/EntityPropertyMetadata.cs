@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DynamicMVC.Shared.Enums;
+using ReflectionLibrary.Enums;
 
 namespace DynamicMVC.EntityMetadataLibrary.Models
 {

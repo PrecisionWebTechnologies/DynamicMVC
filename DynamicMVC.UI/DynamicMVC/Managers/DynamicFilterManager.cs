@@ -46,15 +46,15 @@ namespace DynamicMVC.UI.DynamicMVC.Managers
         {
             var dynamicFilterViewModels = new List<DynamicFilterViewModel>();
             //add default filters
-            foreach (var dynamicPropertyMetadata in dynamicEntityMetadata.DynamicPropertyMetadatas.Where(x => !x.IsCollection))
+            foreach (var dynamicPropertyMetadata in dynamicEntityMetadata.DynamicPropertyMetadatas.Where(x => !x.IsDynamicCollection()))
             {
-                if (dynamicPropertyMetadata.HasDynamicFilterUIAttribute)
+                if (dynamicPropertyMetadata.HasDynamicFilterUIAttribute())
                     continue; //explicit filters will be added later
-                if (dynamicPropertyMetadata is DynamicForiegnKeyPropertyMetadata && !dynamicPropertyMetadata.ListFilterIndexHide)
+                if (dynamicPropertyMetadata is DynamicForiegnKeyPropertyMetadata && !dynamicPropertyMetadata.ListFilterIndexHide())
                 {
                     var dynamicPropertyViewModel = new DynamicFilterViewModel(dynamicPropertyMetadata);
                     var dynamicForiegnKeyPropertyMetadata = ((DynamicForiegnKeyPropertyMetadata)dynamicPropertyMetadata);
-                    var dropdownType = dynamicForiegnKeyPropertyMetadata.ComplexDynamicEntityMetadata.EntityType;
+                    var dropdownType = dynamicForiegnKeyPropertyMetadata.ComplexDynamicEntityMetadata.EntityTypeFunction()();
                     if (_dynamicRepository.GetItemsCount(dropdownType) > _dynamicMvcManager.Options.DynamicDropDownRecordLimit)
                         dynamicPropertyViewModel.DynamicFilterViewName = "DynamicFilterAutoComplete";
                     else
@@ -64,7 +64,7 @@ namespace DynamicMVC.UI.DynamicMVC.Managers
                 }
             }
             //add explicit filters
-            foreach (var dynamicPropertyMetadata in dynamicEntityMetadata.DynamicPropertyMetadatas.Where(x => x.HasDynamicFilterUIAttribute))
+            foreach (var dynamicPropertyMetadata in dynamicEntityMetadata.DynamicPropertyMetadatas.Where(x => x.HasDynamicFilterUIAttribute()))
             {
                 var dynamicFilterViewModel = new DynamicFilterViewModel(dynamicPropertyMetadata);
                 var dynamicFilterUIHintAttribute = dynamicPropertyMetadata.GetDynamicFilterUIHintAttribute();
@@ -74,10 +74,10 @@ namespace DynamicMVC.UI.DynamicMVC.Managers
             //add models for any filters            
             foreach (var dynamicFilterViewModel in dynamicFilterViewModels)
             {
-                var dynamicPropertyMetadata = dynamicEntityMetadata.DynamicPropertyMetadatas.Single(x=>x.PropertyName == dynamicFilterViewModel.PropertyName);
+                var dynamicPropertyMetadata = dynamicEntityMetadata.DynamicPropertyMetadatas.Single(x=>x.PropertyName() == dynamicFilterViewModel.PropertyName);
                 var dynamicFilter = _dynamicFilterFactory.GetDynamicFilter(dynamicFilterViewModel.DynamicFilterViewName, dynamicPropertyMetadata, routeValueDictionaryWrapper);
                 dynamicFilterViewModel.FilterModel = dynamicFilter;
-                if (dynamicPropertyMetadata.HasDynamicFilterUIAttribute)
+                if (dynamicPropertyMetadata.HasDynamicFilterUIAttribute())
                 {
                     dynamicFilterViewModel.FilterModel.Order = dynamicPropertyMetadata.GetDynamicFilterUIHintAttribute().Order;
                 }

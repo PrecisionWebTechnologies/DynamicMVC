@@ -1,5 +1,5 @@
 using DynamicMVC.DynamicEntityMetadataLibrary.Models;
-using DynamicMVC.EntityMetadataLibrary.Models;
+using ReflectionLibrary.Interfaces;
 
 namespace DynamicMVC.DynamicEntityMetadataLibrary.Interfaces
 {
@@ -8,6 +8,6 @@ namespace DynamicMVC.DynamicEntityMetadataLibrary.Interfaces
         DynamicForiegnKeyPropertyMetadata GetDynamicForiegnKeyPropertyMetadata(DynamicEntityMetadata dynamicEntityMetadata, DynamicComplexPropertyMetadata dynamicComplexPropertyMetadata);
         DynamicPropertyMetadata GetCollectionProperty(DynamicEntityMetadata dynamicEntityMetadata, DynamicPropertyMetadata dynamicPropertyMetadata);
         string GetForiegnKeyNameByCollectionProperty(DynamicEntityMetadata entityMetadata, string typeName, DynamicCollectionEntityPropertyMetadata dynamicCollectionEntityPropertyMetadata);
-        bool IsForeignKey(EntityPropertyMetadata entityPropertyMetadata);
+        bool IsForeignKey(IReflectedProperty reflectedProperty, IReflectedClass reflectedClass);
     }
 }

@@ -29,8 +29,8 @@ namespace DynamicMVC.UI.DynamicMVC.ViewModelBuilders
         public DynamicDetailsViewModel Build(DynamicEntityMetadata dynamicEntityMetadata, dynamic detailModel)
         {
             var dynamicDetailsViewModel = new DynamicDetailsViewModel();
-            dynamicDetailsViewModel.TypeName = dynamicEntityMetadata.TypeName;
-            dynamicDetailsViewModel.Header = dynamicEntityMetadata.DetailsHeader;
+            dynamicDetailsViewModel.TypeName = dynamicEntityMetadata.TypeName();
+            dynamicDetailsViewModel.Header = dynamicEntityMetadata.DetailsHeader();
             dynamicDetailsViewModel.Item = detailModel;
             dynamicDetailsViewModel.DynamicUIMethods = dynamicEntityMetadata.GetDynamicMethods(TemplateTypeEnum.Details).ToList();
             foreach (var dynamicPropertyEditorViewModel in GetDynamicPropertyViewModels(dynamicEntityMetadata, detailModel))
@@ -53,7 +53,7 @@ namespace DynamicMVC.UI.DynamicMVC.ViewModelBuilders
         /// <returns></returns>
         public IEnumerable<DynamicPropertyMetadata> GetViewProperties(DynamicEntityMetadata dynamicEntityMetadata)
         {
-            var dynamicPropertyMetadatas = dynamicEntityMetadata.ScaffoldDetailsProperties;
+            var dynamicPropertyMetadatas = dynamicEntityMetadata.ScaffoldDetailsProperties();
             var viewProperties = _requestManager.ViewProperties();
             if (!string.IsNullOrWhiteSpace(viewProperties))
                 dynamicPropertyMetadatas = _propertyFilterManager.FilterAndOrderProperties(dynamicPropertyMetadatas, viewProperties).ToList();
@@ -68,7 +68,7 @@ namespace DynamicMVC.UI.DynamicMVC.ViewModelBuilders
             {
                 _dynamicPropertyViewModels = new List<DynamicPropertyEditorViewModel>();
                 var viewProperties = GetViewProperties(dynamicEntityMetadata);
-                viewProperties = viewProperties.Where(x => x.IsSimple|| x.IsCollection).ToList(); //this view only shows simple properties
+                viewProperties = viewProperties.Where(x => x.IsSimple()|| x.IsDynamicCollection()).ToList(); //this view only shows simple properties
                 foreach (var dynamicPropertyMetadata in viewProperties)
                 {
                     var dynamicPropertyEditorViewModel = _dynamicPropertyViewModelBuilder.BuildDynamicPropertyEditorViewModelForDetails(dynamicPropertyMetadata);

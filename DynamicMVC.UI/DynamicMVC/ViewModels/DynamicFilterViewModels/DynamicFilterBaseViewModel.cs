@@ -19,7 +19,7 @@ namespace DynamicMVC.UI.DynamicMVC.ViewModels.DynamicFilterViewModels
 
         public virtual void ViewModelCreated(DynamicPropertyMetadata dynamicPropertyMetadata, IDictionary<string, object> controlParameters)
         {
-            LabelText = dynamicPropertyMetadata.DisplayName;
+            LabelText = dynamicPropertyMetadata.DisplayName();
             QueryStringName = PropertyName;
             if (controlParameters.ContainsKey("QueryStringName"))
                 QueryStringName = controlParameters["QueryStringName"].ToString();

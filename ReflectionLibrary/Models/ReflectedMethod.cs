@@ -13,14 +13,10 @@ namespace ReflectionLibrary.Models
         } 
 
         public string Name { get; set; }
-        public Func<object, object[], object> InvokeFunction { get; set; }
+        
         public IReflectedClass ReflectedClass { get; set; }
         public ICollection<Attribute> Attributes { get; set; }
-
-        public object Invoke(object obj, object[] paramaters)
-        {
-            return InvokeFunction(obj, paramaters);
-        }
+        public IReflectedMethodOperations ReflectedMethodOperations { get; set; }
 
         public override string ToString()
         {

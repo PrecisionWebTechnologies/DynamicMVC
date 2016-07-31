@@ -9,9 +9,9 @@ namespace DynamicMVC.UI.DynamicMVC.ViewModels.DynamicPropertyViewModels
     {
         public DynamicPropertyViewModel(DynamicPropertyMetadata dynamicPropertyMetadata)
         {
-            ViewModelPropertyName = dynamicPropertyMetadata.PropertyName;
-            PropertyName = dynamicPropertyMetadata.PropertyName;
-            DisplayName = dynamicPropertyMetadata.DisplayName;
+            ViewModelPropertyName = dynamicPropertyMetadata.PropertyName();
+            PropertyName = dynamicPropertyMetadata.PropertyName();
+            DisplayName = dynamicPropertyMetadata.DisplayName();
         }
 
         public string ViewModelPropertyName { get; set; }

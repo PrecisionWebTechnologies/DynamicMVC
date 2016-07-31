@@ -8,9 +8,21 @@ namespace ReflectionLibrary.Managers
 {
     public class ReflectionLibraryManager : IReflectedLibraryManager
     {
+        private readonly IReflectedClassBuilder _reflectedClassBuilder;
+
+        public ReflectionLibraryManager()
+        {
+            _reflectedClassBuilder = UnityConfig.GetConfiguredContainer().Resolve<IReflectedClassBuilder>();
+        }
+
+        public ReflectionLibraryManager(IReflectedClassBuilder reflectedClassBuilder)
+        {
+            _reflectedClassBuilder = reflectedClassBuilder;
+        }
+
         public IReflectedClass GetReflectedClass(Type type)
         {
-            var reflectedClassBuilder = UnityConfig.GetConfiguredContainer().Resolve<IReflectedClassBuilder>();
+            var reflectedClassBuilder = _reflectedClassBuilder;
             var reflectedClass = reflectedClassBuilder.BuildReflectedClass(type);
             return reflectedClass;
         }

@@ -44,7 +44,7 @@ namespace DynamicMVC.UI.DynamicMVC
 
         public Type EntityType
         {
-            get { return DynamicEntityMetadata.EntityType; }
+            get { return DynamicEntityMetadata.EntityTypeFunction()(); }
         }
         public DynamicEntityMetadata DynamicEntityMetadata
         {
@@ -52,19 +52,19 @@ namespace DynamicMVC.UI.DynamicMVC
         }
         public string KeyName
         {
-            get { return _dynamicEntitySearchManager.DynamicEntityMetadata.KeyProperty.PropertyName; }
+            get { return _dynamicEntitySearchManager.DynamicEntityMetadata.KeyProperty().PropertyName(); }
         }
 
         public string TypeName
         {
-            get { return _dynamicEntitySearchManager.DynamicEntityMetadata.TypeName; }
+            get { return _dynamicEntitySearchManager.DynamicEntityMetadata.TypeName(); }
         }
 
         public dynamic ParseKeyType(dynamic id)
         {
             if (id.GetType() == typeof(String[])) //mvc model binder does not bind correctly with the dynamic data type in some cases
                 id = ((string[])id)[0];
-            return DynamicEntityMetadata.KeyProperty.ParseValue(id.ToString());
+            return DynamicEntityMetadata.KeyProperty().ParseValue()(id.ToString());
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace DynamicMVC.UI.DynamicMVC
 
         public void CreateItem(dynamic createModel)
         {
-            DynamicMVCContext.DynamicMvcManager.LoadCreateIncludes(DynamicEntityMetadata, createModel, _dynamicRepository, DynamicEntityMetadata.InstanceIncludes.ToArray());
+            DynamicMVCContext.DynamicMvcManager.LoadCreateIncludes(DynamicEntityMetadata, createModel, _dynamicRepository, DynamicEntityMetadata.InstanceIncludes().ToArray());
             _dynamicRepository.CreateItem(EntityType, createModel);
         }
 

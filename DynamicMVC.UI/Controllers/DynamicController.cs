@@ -44,7 +44,7 @@ namespace DynamicMVC.UI.Controllers
 
         public virtual ActionResult Create(string returnUrl)
         {
-            dynamic createModel = DynamicEntityMetadata.CreateNewObject();
+            dynamic createModel = DynamicEntityMetadata.CreateNewObject()();
             UpdateModelAndClearModelState(createModel);
             var viewModel = DynamicCreateViewModelBuilder.Build(DynamicEntityMetadata, createModel, returnUrl);
             return View("DynamicCreate", viewModel);
@@ -54,7 +54,7 @@ namespace DynamicMVC.UI.Controllers
         [ValidateAntiForgeryToken]
         public virtual ActionResult Create(FormCollection formCollection, string submitType, string returnUrl)
         {
-            dynamic model = DynamicEntityMetadata.CreateNewObject();
+            dynamic model = DynamicEntityMetadata.CreateNewObject()();
             var viewModel = DynamicCreateViewModelBuilder.Build(DynamicEntityMetadata, model, returnUrl);
             if (TryUpdateModel(viewModel.Item, "Item"))
             {
@@ -75,7 +75,7 @@ namespace DynamicMVC.UI.Controllers
         public virtual ActionResult Delete(dynamic id, string returnUrl)
         {
             id = ParseKeyType(id);
-            var model = _dynamicRepository.GetItem(EntityType, DynamicEntityMetadata.KeyProperty.PropertyName, id);
+            var model = _dynamicRepository.GetItem(EntityType, DynamicEntityMetadata.KeyProperty().PropertyName(), id);
             var viewModel = _dynamicDeleteViewModelBuilder.Build(DynamicEntityMetadata, model, returnUrl);
             return View("DynamicDelete", viewModel);
         }
@@ -91,7 +91,7 @@ namespace DynamicMVC.UI.Controllers
         public virtual ActionResult Details(dynamic id)
         {
             id = ParseKeyType(id);
-            var model = _dynamicRepository.GetItem(EntityType, KeyName, id, DynamicEntityMetadata.InstanceIncludes.ToArray());
+            var model = _dynamicRepository.GetItem(EntityType, KeyName, id, DynamicEntityMetadata.InstanceIncludes().ToArray());
             var viewModel = DynamicDetailsViewModelBuilder.Build(DynamicEntityMetadata, model);
             return View("DynamicDetails", viewModel);
         }
@@ -101,7 +101,7 @@ namespace DynamicMVC.UI.Controllers
         public virtual ActionResult Details(dynamic id, FormCollection formCollection, string submitType, string returnUrl)
         {
             id = ParseKeyType(id);
-            var model = _dynamicRepository.GetItem(EntityType, KeyName, id, DynamicEntityMetadata.InstanceIncludes.ToArray());
+            var model = _dynamicRepository.GetItem(EntityType, KeyName, id, DynamicEntityMetadata.InstanceIncludes().ToArray());
             var viewModel = DynamicDetailsViewModelBuilder.Build(DynamicEntityMetadata, model);
             if (TryUpdateModel(viewModel.Item, "Item"))
             {
@@ -122,7 +122,7 @@ namespace DynamicMVC.UI.Controllers
         public virtual ActionResult Edit(dynamic id, string returnUrl)
         {
             id = ParseKeyType(id);
-            var model = _dynamicRepository.GetItem(EntityType, KeyName, id, DynamicEntityMetadata.InstanceIncludes.ToArray());
+            var model = _dynamicRepository.GetItem(EntityType, KeyName, id, DynamicEntityMetadata.InstanceIncludes().ToArray());
             var viewModel = DynamicEditViewModelBuilder.Build(DynamicEntityMetadata, model, returnUrl);
             return View("DynamicEdit", viewModel);
         }
@@ -131,7 +131,7 @@ namespace DynamicMVC.UI.Controllers
         public virtual ActionResult Edit(dynamic id, FormCollection formCollection, string submitType, string returnUrl)
         {
             id = ParseKeyType(id);
-            var model = _dynamicRepository.GetItem(EntityType, KeyName, id, DynamicEntityMetadata.InstanceIncludes.ToArray());
+            var model = _dynamicRepository.GetItem(EntityType, KeyName, id, DynamicEntityMetadata.InstanceIncludes().ToArray());
             var viewModel = DynamicEditViewModelBuilder.Build(DynamicEntityMetadata, model, returnUrl);
             if (TryUpdateModel(viewModel.Item, "Item"))
             {
@@ -151,7 +151,7 @@ namespace DynamicMVC.UI.Controllers
         [HttpPost]
         public virtual ActionResult AutoComplete(string searchString)
         {
-            return AutoCompleteCustom(KeyName, DynamicEntityMetadata.DefaultProperty.PropertyName, searchString);
+            return AutoCompleteCustom(KeyName, DynamicEntityMetadata.DefaultProperty().PropertyName(), searchString);
         }
         [HttpPost]
         public virtual ActionResult AutoCompleteCustom(string valueMember, string displayMember, string searchString)

@@ -60,11 +60,11 @@ namespace DynamicMVC.UI.DynamicMVC.Extensions
         }
         public static IDictionary<string, object> RouteValueDictionaryTypeCorrection(this IDictionary<string, object> routeValueDictionary, DynamicEntityMetadataLibrary.Models.DynamicEntityMetadata dynamicEntityMetadata)
         {
-            foreach (var propertyInfo in dynamicEntityMetadata.DynamicPropertyMetadatas.Where(x => routeValueDictionary.ContainsKey(x.PropertyName)))
+            foreach (var propertyInfo in dynamicEntityMetadata.DynamicPropertyMetadatas.Where(x => routeValueDictionary.ContainsKey(x.PropertyName())))
             {
-                if (propertyInfo.TypeName == "int")
+                if (propertyInfo.TypeName() == "int")
                 {
-                    routeValueDictionary[propertyInfo.PropertyName] = int.Parse(routeValueDictionary[propertyInfo.PropertyName].ToString());
+                    routeValueDictionary[propertyInfo.PropertyName()] = int.Parse(routeValueDictionary[propertyInfo.PropertyName()].ToString());
                 }
             }
             return routeValueDictionary;

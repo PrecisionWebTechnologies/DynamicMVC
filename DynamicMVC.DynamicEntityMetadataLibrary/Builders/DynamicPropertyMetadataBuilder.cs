@@ -2,48 +2,38 @@ using System.Collections.Generic;
 using System.Linq;
 using DynamicMVC.DynamicEntityMetadataLibrary.Interfaces;
 using DynamicMVC.DynamicEntityMetadataLibrary.Models;
-using DynamicMVC.EntityMetadataLibrary.Models;
+using ReflectionLibrary.Interfaces;
 
 namespace DynamicMVC.DynamicEntityMetadataLibrary.Builders
 {
     public class DynamicPropertyMetadataBuilder : IDynamicPropertyMetadataBuilder
     {
         private readonly INavigationPropertyManager _navigationPropertyManager;
-        private readonly IDynamicPropertyMetadataBuilderHelper[] _dynamicPropertyMetadataBuilderHelpers;
 
-        public DynamicPropertyMetadataBuilder(INavigationPropertyManager navigationPropertyManager, IDynamicPropertyMetadataBuilderHelper[] dynamicPropertyMetadataBuilderHelpers)
+        public DynamicPropertyMetadataBuilder(INavigationPropertyManager navigationPropertyManager)
         {
             _navigationPropertyManager = navigationPropertyManager;
-            _dynamicPropertyMetadataBuilderHelpers = dynamicPropertyMetadataBuilderHelpers;
         }
 
-        public IEnumerable<DynamicPropertyMetadata> Build(EntityMetadata entityMetadata)
+        public IEnumerable<DynamicPropertyMetadata> Build(IReflectedClass reflectedClass, IEnumerable<IReflectedClass> reflectedClasses)
         {
             var dynamicPropertyMetadatas = new List<DynamicPropertyMetadata>();
-            foreach (var entityPropertyMetadata in entityMetadata.EntityPropertyMetadata.ToList())
+            foreach (var reflectedProperty in reflectedClass.ReflectedProperties.ToList())
             {
-                var dynamicPropertyMetadata = new DynamicPropertyMetadata(entityPropertyMetadata);
-                if (_navigationPropertyManager.IsForeignKey(entityPropertyMetadata))
+                var dynamicPropertyMetadata = new DynamicPropertyMetadata(reflectedProperty, reflectedClasses);
+                if (_navigationPropertyManager.IsForeignKey(reflectedProperty, reflectedClass))
                 {
-                    dynamicPropertyMetadata = new DynamicForiegnKeyPropertyMetadata(entityPropertyMetadata);
+                    dynamicPropertyMetadata = new DynamicForiegnKeyPropertyMetadata(reflectedProperty, reflectedClasses);
                 }
-                if (entityPropertyMetadata.IsComplexEntity)
+                if (dynamicPropertyMetadata.IsDynamicEntity())
                 {
-                    dynamicPropertyMetadata = new DynamicComplexPropertyMetadata(entityPropertyMetadata);
+                    dynamicPropertyMetadata = new DynamicComplexPropertyMetadata(reflectedProperty, reflectedClasses);
                 }
-                if (entityPropertyMetadata.IsCollection)
+                if (dynamicPropertyMetadata.IsDynamicCollection())
                 {
-                    dynamicPropertyMetadata = new DynamicCollectionEntityPropertyMetadata(entityPropertyMetadata);
+                    dynamicPropertyMetadata = new DynamicCollectionEntityPropertyMetadata(reflectedProperty, reflectedClasses);
                 }
 
-                dynamicPropertyMetadata.ParseValue = entityPropertyMetadata.ParseValue;
-                var keyName = entityMetadata.DynamicEntityAttribute().Key;
-                dynamicPropertyMetadata.IsPrimaryKey = dynamicPropertyMetadata.PropertyName == keyName;
-
-                foreach (var dynamicPropertyMetadataMaterializerHelper in _dynamicPropertyMetadataBuilderHelpers)
-                {
-                    dynamicPropertyMetadataMaterializerHelper.Build(entityMetadata, entityPropertyMetadata, dynamicPropertyMetadata);
-                }
                 dynamicPropertyMetadatas.Add(dynamicPropertyMetadata);
 
             }

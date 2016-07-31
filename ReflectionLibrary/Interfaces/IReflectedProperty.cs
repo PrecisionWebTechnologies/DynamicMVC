@@ -1,27 +1,23 @@
 using System;
 using System.Collections.Generic;
+using ReflectionLibrary.Enums;
 
 namespace ReflectionLibrary.Interfaces
 {
-    public interface IReflectedProperty : IEntityWithAttributes
+    public interface IReflectedProperty : IReflectedObjectWithAttributes
     {
-        string PropertyName { get; set; }
+        IReflectedPropertyOperations ReflectedPropertyOperations { get; set; }
+        string Name { get; set; }
         IReflectedClass ReflectedClass { get; set; }
         ICollection<Attribute> Attributes { get; set; }
-        string PropertyType { get; set; }
-        /// <summary>
-        /// Func value , item
-        /// </summary>
-        Func<object, object> GetValueFunction { get; set; }
+        string PropertyTypeName { get; set; }
 
-        /// <summary>
-        /// propertyInfo.SetValue(item, value);
-        /// </summary>
-        Action<object, object> SetValueAction { get; set; }
-
+        bool IsSimple { get; set; }
+        SimpleTypeEnum SimpleTypeEnum { get; set; }
+        bool IsComplex { get; set; }
+        bool IsCollection { get; set; }
+        string CollectionItemTypeName { get; set; }
         bool IsNullable { get; set; }
-
-        dynamic GetValue(dynamic item);
-        void SetPropertyInfoValueFunction(dynamic item, dynamic value);
+        ISimpleTypeParser SimpleTypeParser { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace DynamicMVC.Shared.Managers
             foreach (var propertyFilter in propertiesFilter)
             {
                 // ReSharper disable once PossibleMultipleEnumeration
-                var property = properties.SingleOrDefault(x => x.PropertyName == propertyFilter);
+                var property = properties.SingleOrDefault(x => x.PropertyName() == propertyFilter);
                 if (property != null)
                     filteredProperties.Add(property);
             }

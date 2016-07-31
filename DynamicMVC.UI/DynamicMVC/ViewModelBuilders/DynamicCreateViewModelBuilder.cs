@@ -33,8 +33,8 @@ namespace DynamicMVC.UI.DynamicMVC.ViewModelBuilders
         public DynamicCreateViewModel Build(DynamicEntityMetadata dynamicEntityMetadata, dynamic createModel, string returnUrl)
         {
             var dynamicCreateViewModel = new DynamicCreateViewModel();
-            dynamicCreateViewModel.Header = dynamicEntityMetadata.CreateHeader;
-            dynamicCreateViewModel.TypeName = dynamicEntityMetadata.TypeName;
+            dynamicCreateViewModel.Header = dynamicEntityMetadata.CreateHeader();
+            dynamicCreateViewModel.TypeName = dynamicEntityMetadata.TypeName();
             dynamicCreateViewModel.ReturnUrl = returnUrl;
             dynamicCreateViewModel.Item = createModel;
             dynamicCreateViewModel.DynamicUIMethods = dynamicEntityMetadata.GetDynamicMethods(TemplateTypeEnum.Create).ToList();
@@ -57,7 +57,7 @@ namespace DynamicMVC.UI.DynamicMVC.ViewModelBuilders
         /// <returns></returns>
         public IEnumerable<DynamicPropertyMetadata> GetViewProperties(DynamicEntityMetadata dynamicEntityMetadata)
         {
-            var dynamicPropertyMetadatas = dynamicEntityMetadata.ScaffoldCreateProperties;
+            var dynamicPropertyMetadatas = dynamicEntityMetadata.ScaffoldCreateProperties();
             var viewProperties = _requestManager.ViewProperties();
             if (!string.IsNullOrWhiteSpace(viewProperties))
                 dynamicPropertyMetadatas = _propertyFilterManager.FilterAndOrderProperties(dynamicPropertyMetadatas,viewProperties).ToList();
@@ -72,7 +72,7 @@ namespace DynamicMVC.UI.DynamicMVC.ViewModelBuilders
             {
                 _dynamicPropertyViewModels = new List<DynamicPropertyEditorViewModel>();
                 var viewProperties = GetViewProperties(dynamicEntityMetadata);
-                viewProperties = viewProperties.Where(x => x.IsSimple).ToList(); //this view only shows simple properties
+                viewProperties = viewProperties.Where(x => x.IsSimple()).ToList(); //this view only shows simple properties
                 foreach (var dynamicProperty in viewProperties)
                 {
                     var dynamicPropertyViewModel =_dynamicPropertyViewModelBuilder.BuildDynamicPropertyEditorViewModelForCreate(dynamicProperty);

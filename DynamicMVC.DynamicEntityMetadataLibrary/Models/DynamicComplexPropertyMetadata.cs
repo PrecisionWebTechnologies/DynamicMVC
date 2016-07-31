@@ -1,11 +1,12 @@
-using DynamicMVC.EntityMetadataLibrary.Models;
+using System.Collections.Generic;
+using ReflectionLibrary.Interfaces;
 
 namespace DynamicMVC.DynamicEntityMetadataLibrary.Models
 {
     public class DynamicComplexPropertyMetadata : DynamicPropertyMetadata
     {
-        public DynamicComplexPropertyMetadata(EntityPropertyMetadata entityPropertyMetadata)
-            :base(entityPropertyMetadata)
+        public DynamicComplexPropertyMetadata(IReflectedProperty reflectedProperty, IEnumerable<IReflectedClass> reflectedClasses)
+            :base(reflectedProperty, reflectedClasses)
         {
             
         }

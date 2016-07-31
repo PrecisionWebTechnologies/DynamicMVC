@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using DynamicMVC.DynamicEntityMetadataLibrary.Models;
+using ReflectionLibrary.Interfaces;
 
 namespace DynamicMVC.DynamicEntityMetadataLibrary.Interfaces
 {
     public interface IDynamicEntityMetadataBuilder
     {
-        IEnumerable<Models.DynamicEntityMetadata> Build(IEnumerable<EntityMetadataLibrary.Models.EntityMetadata> entityMetadatas);
+        IEnumerable<DynamicEntityMetadata> Build(IEnumerable<IReflectedDynamicClass> reflectedClasses);
     }
 }

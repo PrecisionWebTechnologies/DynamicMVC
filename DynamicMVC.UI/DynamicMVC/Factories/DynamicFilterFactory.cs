@@ -28,7 +28,7 @@ namespace DynamicMVC.UI.DynamicMVC.Factories
             //ToDo:  this line was added due to unexpected data showing up in routevaluedictionary.
             //prevoius version used activator here.  look into removing this line
             dynamicFilter = Container.Resolve<IDynamicFilter>(dynamicFilter.GetType().Name);
-            dynamicFilter.PropertyName = dynamicPropertyMetadata.PropertyName;
+            dynamicFilter.PropertyName = dynamicPropertyMetadata.PropertyName();
             dynamicFilter.RouteValueDictionaryWrapper = routeValueDictionaryWrapper;
 
             return dynamicFilter;
@@ -37,7 +37,7 @@ namespace DynamicMVC.UI.DynamicMVC.Factories
         private void CallViewModelCreated(IDynamicFilter dynamicFilter, DynamicPropertyMetadata dynamicPropertyMetadata)
         {
             var controlParameters = (IDictionary<string, object>)new Dictionary<string, object>();
-            if (dynamicPropertyMetadata.HasDynamicFilterUIAttribute)
+            if (dynamicPropertyMetadata.HasDynamicFilterUIAttribute())
                 controlParameters = dynamicPropertyMetadata.GetDynamicFilterUIHintAttribute().ControlParameters;
 
             dynamicFilter.ViewModelCreated(dynamicPropertyMetadata, controlParameters);

@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Practices.Unity;
 using ReflectionLibrary.Builders;
+using ReflectionLibrary.Extensions;
 using ReflectionLibrary.Interfaces;
 using ReflectionLibrary.Managers;
 using ReflectionLibrary.Models;
@@ -25,6 +26,11 @@ namespace ReflectionLibrary
             container.RegisterType<IReflectedProperty, ReflectedProperty>();
             container.RegisterType<IReflectedPropertyBuilder, ReflectedPropertyBuilder>();
             container.RegisterType<IAttributeMergeManager, AttributeMergeManager>();
+            container.RegisterType<IReflectedMethodOperations, ReflectedMethodOperations>();
+            container.RegisterType<IReflectedClassOperations, ReflectedClassOperations>();
+            container.RegisterType<IReflectedPropertyOperations, ReflectedPropertyOperations>();
+            container.RegisterType<IPropertyTypeManager, PropertyTypeManager>();
+            container.RegisterCollection<ISimpleTypeParser>();
         }
 
         #region Unity Container

@@ -7,8 +7,8 @@ namespace DynamicMVC.DynamicEntityMetadataLibrary.Strategies.DynamicEntityMetada
     {
         public string Validate(DynamicEntityMetadata dynamicEntityMetadata)
         {
-            if (dynamicEntityMetadata.ScaffoldIndexProperties == null)
-                return "ScaffoldIndexProperties should not be null for DynamicEntity " + dynamicEntityMetadata.TypeName;
+            if (dynamicEntityMetadata.ScaffoldIndexProperties() == null)
+                return "ScaffoldIndexProperties should not be null for DynamicEntity " + dynamicEntityMetadata.TypeName();
 
             return null;
         }

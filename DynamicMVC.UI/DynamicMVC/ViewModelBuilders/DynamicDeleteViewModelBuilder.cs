@@ -9,8 +9,8 @@ namespace DynamicMVC.UI.DynamicMVC.ViewModelBuilders
         public DynamicDeleteViewModel Build(DynamicEntityMetadata dynamicEntityMetadata, dynamic deleteModel, string returnUrl)
         {
             var dynamicDeleteViewModel = new DynamicDeleteViewModel();
-            dynamicDeleteViewModel.TypeName = dynamicEntityMetadata.TypeName;
-            dynamicDeleteViewModel.Header = "Delete " + dynamicEntityMetadata.TypeName;
+            dynamicDeleteViewModel.TypeName = dynamicEntityMetadata.TypeName();
+            dynamicDeleteViewModel.Header = "Delete " + dynamicEntityMetadata.TypeName();
             dynamicDeleteViewModel.ReturnUrl = returnUrl;
             return dynamicDeleteViewModel;
         }

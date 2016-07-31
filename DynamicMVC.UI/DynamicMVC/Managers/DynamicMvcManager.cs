@@ -35,11 +35,6 @@ namespace DynamicMVC.UI.DynamicMVC.Managers
             DynamicMVCContext.DynamicEntityMetadatas = _dynamicEntityMetadataManager.GetDynamicEntityMetadatas();
         }
 
-        public void RegisterDynamicMvc(IEnumerable<EntityMetadataLibrary.Models.EntityMetadata> entityMetadatas)
-        {
-            DynamicMVCContext.DynamicEntityMetadatas = _dynamicEntityMetadataManager.GetDynamicEntityMetadatas(entityMetadatas);
-        }
-
         public DynamicMVCContextOptions Options
         {
             get { return DynamicMVCContext.Options; }
@@ -56,20 +51,20 @@ namespace DynamicMVC.UI.DynamicMVC.Managers
             newRouteCollection.Add(firstRoute);
             foreach (var dynamicEntityMetadata in DynamicMVCContext.DynamicEntityMetadatas)
             {
-                if (dynamicEntityMetadata.ControllerExists)
+                if (dynamicEntityMetadata.ControllerExists())
                 {
                     newRouteCollection.MapRoute(
-                name: "Dynamic" + dynamicEntityMetadata.TypeName,
-                url: dynamicEntityMetadata.TypeName + "/{action}/{id}",
-                defaults: new { controller = dynamicEntityMetadata.TypeName, action = "Index", id = UrlParameter.Optional, typeName = dynamicEntityMetadata.TypeName }
+                name: "Dynamic" + dynamicEntityMetadata.TypeName(),
+                url: dynamicEntityMetadata.TypeName() + "/{action}/{id}",
+                defaults: new { controller = dynamicEntityMetadata.TypeName(), action = "Index", id = UrlParameter.Optional, typeName = dynamicEntityMetadata.TypeName() }
                 );
                 }
                 else
                 {
                     newRouteCollection.MapRoute(
-                    name: "Dynamic" + dynamicEntityMetadata.TypeName,
-                    url: dynamicEntityMetadata.TypeName + "/{action}/{id}",
-                    defaults: new { controller = "Dynamic", action = "Index", id = UrlParameter.Optional, typeName = dynamicEntityMetadata.TypeName }
+                    name: "Dynamic" + dynamicEntityMetadata.TypeName(),
+                    url: dynamicEntityMetadata.TypeName() + "/{action}/{id}",
+                    defaults: new { controller = "Dynamic", action = "Index", id = UrlParameter.Optional, typeName = dynamicEntityMetadata.TypeName() }
                     );
                 }
 
@@ -105,7 +100,7 @@ namespace DynamicMVC.UI.DynamicMVC.Managers
         /// <returns></returns>
         public object GetItemByTypeAndKeyFunction(Type type, dynamic keyValue)
         {
-            var keyName = DynamicMVCContext.GetDynamicEntityMetadata(type.Name).KeyProperty.PropertyName;
+            var keyName = DynamicMVCContext.GetDynamicEntityMetadata(type.Name).KeyProperty().PropertyName();
             using (var dynamicRepository = Container.Resolve<IDynamicRepository>())
             {
                 return dynamicRepository.GetItem(type, keyName, keyValue);
@@ -157,13 +152,13 @@ namespace DynamicMVC.UI.DynamicMVC.Managers
         public IEnumerable<DynamicMenuItemViewModel> GetDynamicMenuItems()
         {
             var results = new List<DynamicMenuItemViewModel>();
-            foreach (var dynamicEntityMetadata in DynamicMVCContext.DynamicEntityMetadatas.Where(x => x.DynamicMenuInfo.HasMenuItem))
+            foreach (var dynamicEntityMetadata in DynamicMVCContext.DynamicEntityMetadatas.Where(x => x.DynamicMenuInfo().HasMenuItem))
             {
-                var menuItem = new DynamicMenuItemViewModel(dynamicEntityMetadata, dynamicEntityMetadata.DynamicMenuInfo.MenuItemDisplayName);
-                var parentMenu = results.SingleOrDefault(x => x.DisplayName == dynamicEntityMetadata.DynamicMenuInfo.MenuItemCategory);
+                var menuItem = new DynamicMenuItemViewModel(dynamicEntityMetadata, dynamicEntityMetadata.DynamicMenuInfo().MenuItemDisplayName);
+                var parentMenu = results.SingleOrDefault(x => x.DisplayName == dynamicEntityMetadata.DynamicMenuInfo().MenuItemCategory);
                 if (parentMenu == null)
                 {
-                    parentMenu = new DynamicMenuItemViewModel(dynamicEntityMetadata.DynamicMenuInfo.MenuItemCategory);
+                    parentMenu = new DynamicMenuItemViewModel(dynamicEntityMetadata.DynamicMenuInfo().MenuItemCategory);
                     results.Add(parentMenu);
                 }
                 parentMenu.DynamicMenuItemViewModels.Add(menuItem);
@@ -201,28 +196,28 @@ namespace DynamicMVC.UI.DynamicMVC.Managers
                     currentInclude = include.Substring(0, index);
                 }
                 currentInclude = currentInclude.Trim();
-                var property = dynamicEntityMetadata.DynamicPropertyMetadatas.Single(x => x.PropertyName == currentInclude);
-                if (property.IsCollection)
+                var property = dynamicEntityMetadata.DynamicPropertyMetadatas.Single(x => x.PropertyName() == currentInclude);
+                if (property.IsDynamicCollection())
                 {
                     //its not possible to have a fk to this object b/c its not created yet
                 }
-                else if (property.IsComplexEntity)
+                else if (property.IsDynamicEntity())
                 {
-                    var typeName = property.TypeName;
+                    var typeName = property.TypeName();
                     var dynamicMetadata = GetDynamicEntityMetadata(typeName);
-                    var id = ((DynamicComplexPropertyMetadata)property).DynamicForiegnKeyPropertyMetadata.GetValueFunction(item);
+                    var id = ((DynamicComplexPropertyMetadata)property).DynamicForiegnKeyPropertyMetadata.GetValueFunction()(item);
                     var value = string.IsNullOrWhiteSpace(subinclude) ?
-                        dynamicRepository.GetItem(dynamicMetadata.EntityType, dynamicMetadata.KeyProperty.PropertyName, id)
-                        : dynamicRepository.GetItem(dynamicMetadata.EntityType, dynamicMetadata.KeyProperty.PropertyName, id, subinclude);
-                    property.SetValueAction(item, value);
+                        dynamicRepository.GetItem(dynamicMetadata.EntityTypeFunction()(), dynamicMetadata.KeyProperty().PropertyName(), id)
+                        : dynamicRepository.GetItem(dynamicMetadata.EntityTypeFunction()(), dynamicMetadata.KeyProperty().PropertyName(), id, subinclude);
+                    property.SetValueAction()(item, value);
 
                     //Add item to the collection for this entity
                     var collectionProperty = _navigationPropertyManager.GetCollectionProperty(dynamicEntityMetadata, property);
                     if (collectionProperty != null)
                     {
-                        var collection = collectionProperty.GetValueFunction(value);
+                        var collection = collectionProperty.GetValueFunction()(value);
                         //Todo:  throw exception here if collection is null
-                        collection.GetType().GetMethod("Add").Invoke(collection, new[] { item });
+                        collection .GetType().GetMethod("Add").Invoke(collection, new[] { item });
                     }
                 }
             }

@@ -18,7 +18,7 @@ namespace ReflectionLibrary.Managers
             }
             foreach (var reflectedProperty in target.ReflectedProperties)
             {
-                var targetReflectedProperty = target.ReflectedProperties.SingleOrDefault(x => x.PropertyName == reflectedProperty.PropertyName);
+                var targetReflectedProperty = target.ReflectedProperties.SingleOrDefault(x => x.Name == reflectedProperty.Name);
                 if (targetReflectedProperty != null)
                     Merge(reflectedProperty.Attributes, targetReflectedProperty.Attributes);
             }

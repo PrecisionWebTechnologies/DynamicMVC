@@ -20,7 +20,7 @@ namespace DynamicMVC.UI.DynamicMVC
 
         public static DynamicEntityMetadataLibrary.Models.DynamicEntityMetadata GetDynamicEntityMetadata(string typeName)
         {
-            return DynamicEntityMetadatas.Single(x => x.TypeName == typeName);
+            return DynamicEntityMetadatas.Single(x => x.TypeName() == typeName);
         }
 
         public static IDynamicMvcManager DynamicMvcManager;

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DynamicMVC.DynamicEntityMetadataLibrary.Interfaces;
 using DynamicMVC.DynamicEntityMetadataLibrary.Models;
-using DynamicMVC.EntityMetadataLibrary.Interfaces;
-using DynamicMVC.EntityMetadataLibrary.Models;
+using ReflectionLibrary.Interfaces;
 
 namespace DynamicMVC.DynamicEntityMetadataLibrary
 {
@@ -13,28 +12,28 @@ namespace DynamicMVC.DynamicEntityMetadataLibrary
     /// </summary>
     public class DynamicEntityMetadataManager : IDynamicEntityMetadataManager
     {
-        private readonly IEntityMetadataManager _entityMetadataManager;
         private readonly IDynamicEntityMetadataBuilder _dynamicEntityMetadataBuilder;
         private readonly IDynamicEntityMetadataValidator[] _dynamicEntityMetadataValidators;
+        private readonly IReflectionManager _reflectionManager;
 
-        public DynamicEntityMetadataManager(IEntityMetadataManager entityMetadataManager, IDynamicEntityMetadataBuilder dynamicEntityMetadataBuilder, IDynamicEntityMetadataValidator[] dynamicEntityMetadataValidators)
+        public DynamicEntityMetadataManager(IDynamicEntityMetadataBuilder dynamicEntityMetadataBuilder, IDynamicEntityMetadataValidator[] dynamicEntityMetadataValidators, IReflectionManager reflectionManager)
         {
-            _entityMetadataManager = entityMetadataManager;
+            _reflectionManager = reflectionManager;
             _dynamicEntityMetadataBuilder = dynamicEntityMetadataBuilder;
             _dynamicEntityMetadataValidators = dynamicEntityMetadataValidators;
         }
 
         public IEnumerable<DynamicEntityMetadata> GetDynamicEntityMetadatas()
         {
-            var entityMetadatas = _entityMetadataManager.GetEntityMetadatas();
-            var results = _dynamicEntityMetadataBuilder.Build(entityMetadatas).ToList();
+            var reflectedClasses = _reflectionManager.GetReflectedDynamicClasses();
+            var results = _dynamicEntityMetadataBuilder.Build(reflectedClasses).ToList();
             Validate(results);
             return results;
         }
 
-        public IEnumerable<DynamicEntityMetadata> GetDynamicEntityMetadatas(IEnumerable<EntityMetadata> entityMetadatas)
+        public IEnumerable<DynamicEntityMetadata> GetDynamicEntityMetadatas(IEnumerable<IReflectedDynamicClass> reflectedClasses)
         {
-            var results = _dynamicEntityMetadataBuilder.Build(entityMetadatas).ToList();
+            var results = _dynamicEntityMetadataBuilder.Build(reflectedClasses).ToList();
             Validate(results);
             return results;
         }

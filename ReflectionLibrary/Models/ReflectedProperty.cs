@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ReflectionLibrary.Enums;
 using ReflectionLibrary.Interfaces;
 #pragma warning disable 1591
 
@@ -11,37 +12,29 @@ namespace ReflectionLibrary.Models
         {
             Attributes = new HashSet<Attribute>();
         }
+        /// <summary>
+        /// Property Name
+        /// </summary>
+        public string Name { get; set; }
 
-        public string PropertyName { get; set; }
-        public string PropertyType { get; set; }
+        public string PropertyTypeName { get; set; }
+
+        public bool IsSimple { get; set; }
+        public SimpleTypeEnum SimpleTypeEnum { get; set; }
+        public ISimpleTypeParser SimpleTypeParser { get; set; }
+
+        public bool IsComplex { get; set; }
+        public bool IsCollection { get; set; }
+        public string CollectionItemTypeName { get; set; }
         public bool IsNullable { get; set; }
 
+        public IReflectedPropertyOperations ReflectedPropertyOperations { get; set; }
         public IReflectedClass ReflectedClass { get; set; }
         public ICollection<Attribute> Attributes { get; set; }
 
-        /// <summary>
-        /// Func value , item //return propertyInfo.GetValue(item);
-        /// </summary>
-        public Func<dynamic, dynamic> GetValueFunction { get; set; }
-        public dynamic GetValue(dynamic item)
-        {
-            if (item == null)
-                throw new Exception("GetPropertyInfoValueFunction should not be called with a null item passed into it.");
-            return GetValueFunction(item);
-        }
-
-        /// <summary>
-        /// propertyInfo.SetValue(item, value);
-        /// </summary>
-        public Action<dynamic, dynamic> SetValueAction { get; set; }
-        public void SetPropertyInfoValueFunction(dynamic item, dynamic value)
-        {
-            SetValueAction(item, value);
-        }
-
         public override string ToString()
         {
-            return String.Format("{0}({1}) - {2} Attributes", PropertyName, PropertyType, Attributes.Count);
+            return String.Format("{0}({1}) - {2} Attributes", Name, PropertyTypeName, Attributes.Count);
         }
     }
 }

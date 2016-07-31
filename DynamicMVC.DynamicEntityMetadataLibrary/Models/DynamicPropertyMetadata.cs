@@ -1,11 +1,15 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using DynamicMVC.Annotations;
-using DynamicMVC.EntityMetadataLibrary.Models;
-using DynamicMVC.Shared.Enums;
+using DynamicMVC.Shared.Extensions;
 using DynamicMVC.Shared.Interfaces;
+using ReflectionLibrary.Enums;
+using ReflectionLibrary.Extensions;
+using ReflectionLibrary.Interfaces;
+#pragma warning disable 1591
 
 namespace DynamicMVC.DynamicEntityMetadataLibrary.Models
 {
@@ -14,75 +18,159 @@ namespace DynamicMVC.DynamicEntityMetadataLibrary.Models
     /// </summary>
     public class DynamicPropertyMetadata : IPropertyWithPropertyName
     {
-        public DynamicPropertyMetadata(EntityPropertyMetadata entityPropertyMetadata)
+        public DynamicPropertyMetadata(IReflectedProperty reflectedProperty, IEnumerable<IReflectedClass> reflectedClasses)
         {
-            GetValueFunction = entityPropertyMetadata.GetValueFunction;
-            PropertyName = entityPropertyMetadata.PropertyName;
-            IsSimple = entityPropertyMetadata.IsSimple;
-            IsComplexEntity = entityPropertyMetadata.IsComplexEntity;
-            IsCollection = entityPropertyMetadata.IsCollection;
-            IsNullableType = entityPropertyMetadata.IsNullableType;
-
-            var uiHint = (UIHintAttribute)entityPropertyMetadata.EntityPropertyAttributes.SingleOrDefault(x => x is UIHintAttribute);
-            if (uiHint != null)
-                UIHint = uiHint.UIHint;
-
-            var dataTypeAttribute = (DataTypeAttribute)entityPropertyMetadata.EntityPropertyAttributes.SingleOrDefault(x => x is DataTypeAttribute);
-            if (dataTypeAttribute != null)
-                DataType = dataTypeAttribute.DataType;
-
-            TypeName = entityPropertyMetadata.TypeName;
-
-            AllowSort = !entityPropertyMetadata.IsCollection && entityPropertyMetadata.EntityPropertyAttributes.All(x => !(x is DynamicSortNoneAttribute));
-            SetValueAction = entityPropertyMetadata.SetValueAction;
-
-
-            var filterUIHint = (FilterUIHintAttribute)entityPropertyMetadata.EntityPropertyAttributes.SingleOrDefault(x => x is FilterUIHintAttribute);
-            ListFilterIndexHide = filterUIHint != null && filterUIHint.FilterUIHint == "None";
-
-            HasDynamicFilterUIAttribute = entityPropertyMetadata.EntityPropertyAttributes.Any(x => x is DynamicFilterUIHintAttribute) && !ListFilterIndexHide;
-            DynamicFilterUIHintAttribute = (DynamicFilterUIHintAttribute)entityPropertyMetadata.EntityPropertyAttributes.FirstOrDefault(x => x is DynamicFilterUIHintAttribute);
-            SimpleTypeEnum = entityPropertyMetadata.SimpleTypeEnum;
+            ReflectedProperty = reflectedProperty;
+            ReflectedClasses = reflectedClasses;
         }
 
-        public bool Scaffold { get; set; }
+        public IReflectedProperty ReflectedProperty { get; set; }
+        private IEnumerable<IReflectedClass> ReflectedClasses { get; set; }
+
+        public bool Scaffold()
+        {
+            var scaffoldAttribute = ReflectedProperty.GetAttribute<ScaffoldColumnAttribute>();
+
+            if (IsPrimaryKey())
+            {
+                return scaffoldAttribute != null && scaffoldAttribute.Scaffold;
+            }
+            else
+            {
+                if (scaffoldAttribute != null)
+                    return scaffoldAttribute.Scaffold;
+                else
+                    return IsDynamicCollection() || IsSimple() || IsDynamicEntity();
+            }
+        }
 
         public override string ToString()
         {
-            return PropertyName + " - " + TypeName;
+            return ReflectedProperty.Name + " - " + TypeName();
         }
 
-        public bool ListFilterIndexHide { get; set; }
+        public bool ListFilterIndexHide()
+        {
+            var filterUIHint = (FilterUIHintAttribute)ReflectedProperty.Attributes.SingleOrDefault(x => x is FilterUIHintAttribute);
+            return filterUIHint != null && filterUIHint.FilterUIHint == "None";
+        }
 
         public DynamicFilterUIHintAttribute GetDynamicFilterUIHintAttribute()
         {
-            if (DynamicFilterUIHintAttribute == null)
-                throw new NotSupportedException("Cannot retreive DynamicFilterUIAttribute for " + PropertyName + ".  You can call HasDynamicFilter method to determine if this property has a DynamicFilterUIAttribute");
-            return DynamicFilterUIHintAttribute;
+            if (ReflectedProperty.GetAttribute<DynamicFilterUIHintAttribute>() == null)
+                throw new NotSupportedException("Cannot retreive DynamicFilterUIAttribute for " + PropertyName() + ".  You can call HasDynamicFilter method to determine if this property has a DynamicFilterUIAttribute");
+            return ReflectedProperty.GetAttribute<DynamicFilterUIHintAttribute>();
         }
 
-        private DynamicFilterUIHintAttribute DynamicFilterUIHintAttribute { get; set; }
-        public bool HasDynamicFilterUIAttribute { get; set; }
-        public string DisplayName { get; set; }
-        public Func<object, object> GetValueFunction { get; set; }
-        public string PropertyName { get; set; }
-        public bool IsSimple { get; set; }
-        public bool IsCollection { get; set; }
-        public bool IsComplexEntity { get; set; }
-        public bool IsNullableType { get; set; }
-        public string UIHint { get; set; }
+        public string PropertyName()
+        {
+            return ReflectedProperty.Name;
+        }
+
+        public bool HasDynamicFilterUIAttribute()
+        {
+            return ReflectedProperty.HasAttribute<DynamicFilterUIHintAttribute>() && !ListFilterIndexHide();
+        }
+
+        public string DisplayName()
+        {
+            var displayNameAttribute = ReflectedProperty.GetAttribute<DisplayNameAttribute>();
+            var displayAttribute = ReflectedProperty.GetAttribute<DisplayAttribute>();
+            if (displayNameAttribute != null)
+            {
+                return displayNameAttribute.DisplayName;
+            }
+            else if (displayAttribute != null)
+            {
+                return displayAttribute.Name;
+            }
+            else
+            {
+                return ReflectedProperty.Name;
+            }
+        }
+
+        public bool IsSimple()
+        {
+            return ReflectedProperty.IsSimple;
+        }
+
+        public bool IsDynamicCollection()
+        {
+            return ReflectedProperty.IsCollection && ReflectedClasses.Any(x => x.Name == ReflectedProperty.CollectionItemTypeName);
+        }
+
+        public bool IsDynamicEntity()
+        {
+            return ReflectedProperty.IsComplex && ReflectedClasses.Any(x => x.Name == ReflectedProperty.PropertyTypeName);
+        }
+
+        public bool IsNullableType()
+        {
+            return ReflectedProperty.IsNullable;
+        }
+
+        public string UIHint()
+        {
+            var uiHint = ReflectedProperty.Attributes.GetAttribute<UIHintAttribute>();
+            if (uiHint != null)
+              return uiHint.UIHint;
+            return null;
+        }
+
         /// <summary>
         /// DataType specified by DataTypeAttribute
         /// </summary>
-        public DataType DataType { get; set; }
-        public string TypeName { get; set; }
-        public bool AllowSort { get; set; }
-        public bool IsPrimaryKey { get; set; }
-        public Func<string, dynamic> ParseValue { get; set; }
-        public Action<object, object> SetValueAction { get; set; }
+        public DataType DataType()
+        {
+            var dataTypeAttribute = (DataTypeAttribute)ReflectedProperty.GetAttribute<DataTypeAttribute>();
+            if (dataTypeAttribute != null)
+                return dataTypeAttribute.DataType;
+            return default(DataType);
+        }
+
+        public string TypeName()
+        {
+            return ReflectedProperty.PropertyTypeName;
+        }
+
+        public string CollectionItemTypeName()
+        {
+            return ReflectedProperty.CollectionItemTypeName;
+        }
+
+        public bool AllowSort()
+        {
+            return !ReflectedProperty.IsCollection && ReflectedProperty.Attributes.All(x => !(x is DynamicSortNoneAttribute));
+        }
+
+        public bool IsPrimaryKey()
+        {
+            var keyName = DynamicEntityMetadata.ReflectedClass.GetAttribute<DynamicEntityAttribute>().Key;
+            return PropertyName() == keyName;
+        }
+
+        public Func<string, dynamic> ParseValue()
+        {
+            return ReflectedProperty.SimpleTypeParser.Parse;
+        }
+
+        public Action<object, object> SetValueAction()
+        {
+            return ReflectedProperty.ReflectedPropertyOperations.SetValueAction;
+        }
+
+        public Func<object, object> GetValueFunction()
+        {
+            return ReflectedProperty.ReflectedPropertyOperations.GetValueFunction;
+        }
 
         public DynamicEntityMetadata DynamicEntityMetadata { get; set; }
-        public SimpleTypeEnum SimpleTypeEnum { get; set; }
+
+        public SimpleTypeEnum SimpleTypeEnum()
+        {
+            return ReflectedProperty.SimpleTypeEnum;
+        }
 
     }
 }

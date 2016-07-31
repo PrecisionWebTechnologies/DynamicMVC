@@ -48,22 +48,22 @@ namespace DynamicMVC.UI.DynamicMVC.ViewModelBuilders
 
             
             dynamicIndexPageViewModel.RouteValueDictionaryWrapper = routeValuesDictionary;
-            dynamicIndexPageViewModel.RouteValueDictionaryWrapper.SetValue("ReturnUrl", _returnUrlManager.GetReturnUrl("Index", dynamicEntityMetadata.TypeName, routeValuesDictionary, true));
+            dynamicIndexPageViewModel.RouteValueDictionaryWrapper.SetValue("ReturnUrl", _returnUrlManager.GetReturnUrl("Index", dynamicEntityMetadata.TypeName(), routeValuesDictionary, true));
 
             dynamicIndexPageViewModel.NextClassName = _pagingManager.NextClassName(routeValuesDictionary);
             dynamicIndexPageViewModel.PreviousClassName = _pagingManager.PreviousClassName(routeValuesDictionary);
             dynamicIndexPageViewModel.PagingMessage = _pagingManager.PagingMessage(routeValuesDictionary);
 
-            dynamicIndexPageViewModel.ShowCreate = dynamicEntityMetadata.ShowCreate;
-            dynamicIndexPageViewModel.ShowEdit = dynamicEntityMetadata.ShowEdit;
-            dynamicIndexPageViewModel.ShowDelete = dynamicEntityMetadata.ShowDelete;
-            dynamicIndexPageViewModel.ShowDetails = dynamicEntityMetadata.ShowDetails;
+            dynamicIndexPageViewModel.ShowCreate = dynamicEntityMetadata.ShowCreate();
+            dynamicIndexPageViewModel.ShowEdit = dynamicEntityMetadata.ShowEdit();
+            dynamicIndexPageViewModel.ShowDelete = dynamicEntityMetadata.ShowDelete();
+            dynamicIndexPageViewModel.ShowDetails = dynamicEntityMetadata.ShowDetails();
 
-            dynamicIndexPageViewModel.TypeName = dynamicEntityMetadata.TypeName;
+            dynamicIndexPageViewModel.TypeName = dynamicEntityMetadata.TypeName();
 
             dynamicIndexPageViewModel.DynamicPropertyIndexViewModels = GetDynamicPropertyViewModels(dynamicEntityMetadata, null).ToList();
 
-            var defaultpropertyName = dynamicEntityMetadata.DefaultProperty.PropertyName;
+            var defaultpropertyName = dynamicEntityMetadata.DefaultProperty().PropertyName();
             var defaultDynamicProperty = dynamicIndexPageViewModel.DynamicPropertyIndexViewModels.SingleOrDefault(x => x.PropertyName == defaultpropertyName);
             if (defaultDynamicProperty != null)
             {
@@ -75,7 +75,7 @@ namespace DynamicMVC.UI.DynamicMVC.ViewModelBuilders
             //table header items
             foreach (var dynamicPropertyIndexViewModel in dynamicIndexPageViewModel.DynamicPropertyIndexViewModels)
             {
-                var dynamicTableHeaderViewModel = new DynamicTableHeaderViewModel(dynamicPropertyIndexViewModel, routeValuesDictionary, dynamicEntityMetadata.TypeName);
+                var dynamicTableHeaderViewModel = new DynamicTableHeaderViewModel(dynamicPropertyIndexViewModel, routeValuesDictionary, dynamicEntityMetadata.TypeName());
                 dynamicIndexPageViewModel.DynamicTableHeaderViewModels.Add(dynamicTableHeaderViewModel);
             }
 
@@ -95,13 +95,13 @@ namespace DynamicMVC.UI.DynamicMVC.ViewModelBuilders
         public DynamicIndexItemViewModel BuildItemViewModel(DynamicEntityMetadata dynamicEntityMetadata, RouteValueDictionaryWrapper routeValueDictionaryWrapper, dynamic item)
         {
             var dynamicIndexItemViewModel = new DynamicIndexItemViewModel();
-            dynamicIndexItemViewModel.ShowDelete = dynamicEntityMetadata.ShowDelete;
-            dynamicIndexItemViewModel.ShowEdit = dynamicEntityMetadata.ShowEdit;
-            dynamicIndexItemViewModel.ShowDetails = dynamicEntityMetadata.ShowDetails;
+            dynamicIndexItemViewModel.ShowDelete = dynamicEntityMetadata.ShowDelete();
+            dynamicIndexItemViewModel.ShowEdit = dynamicEntityMetadata.ShowEdit();
+            dynamicIndexItemViewModel.ShowDetails = dynamicEntityMetadata.ShowDetails();
             dynamicIndexItemViewModel.Item = item;
-            dynamicIndexItemViewModel.TypeName = dynamicEntityMetadata.TypeName;
+            dynamicIndexItemViewModel.TypeName = dynamicEntityMetadata.TypeName();
             var rv = routeValueDictionaryWrapper.Clone();
-            rv.SetValue("Id", dynamicEntityMetadata.KeyProperty.GetValueFunction(item).ToString());
+            rv.SetValue("Id", dynamicEntityMetadata.KeyProperty().GetValueFunction()(item).ToString());
             dynamicIndexItemViewModel.RouteValueDictionaryWrapper = rv;
 
             IEnumerable<DynamicPropertyIndexViewModel> properties = GetDynamicPropertyViewModels(dynamicEntityMetadata, item);
@@ -115,15 +115,15 @@ namespace DynamicMVC.UI.DynamicMVC.ViewModelBuilders
         public DynamicIndexMobileItemViewModel BuildMobileItemViewModel(DynamicEntityMetadata dynamicEntityMetadata, RouteValueDictionaryWrapper routeValueDictionaryWrapper, dynamic item)
         {
             var dynamicIndexMobileItemViewModel = new DynamicIndexMobileItemViewModel();
-            dynamicIndexMobileItemViewModel.ShowDelete = dynamicEntityMetadata.ShowDelete;
-            dynamicIndexMobileItemViewModel.ShowEdit = dynamicEntityMetadata.ShowEdit;
-            dynamicIndexMobileItemViewModel.ShowDetails = dynamicEntityMetadata.ShowDetails;
+            dynamicIndexMobileItemViewModel.ShowDelete = dynamicEntityMetadata.ShowDelete();
+            dynamicIndexMobileItemViewModel.ShowEdit = dynamicEntityMetadata.ShowEdit();
+            dynamicIndexMobileItemViewModel.ShowDetails = dynamicEntityMetadata.ShowDetails();
             dynamicIndexMobileItemViewModel.Item = item;
 
             IEnumerable<DynamicPropertyIndexViewModel> properties = GetDynamicPropertyViewModels(dynamicEntityMetadata, item);
-            var defaultpropertyName = dynamicEntityMetadata.DefaultProperty.PropertyName;
+            var defaultpropertyName = dynamicEntityMetadata.DefaultProperty().PropertyName();
             var defaultDynamicProperty = properties.SingleOrDefault(x => x.PropertyName == defaultpropertyName);
-            var entityName = dynamicEntityMetadata.TypeName;
+            var entityName = dynamicEntityMetadata.TypeName();
 
             foreach (var dynamicPropertyIndexViewModel in properties.Where(x => x.PropertyName != defaultpropertyName).ToList())
             {
@@ -137,16 +137,16 @@ namespace DynamicMVC.UI.DynamicMVC.ViewModelBuilders
 
             dynamicIndexMobileItemViewModel.EntityName = entityName;
 
-            dynamicIndexMobileItemViewModel.TypeName = dynamicEntityMetadata.TypeName;
+            dynamicIndexMobileItemViewModel.TypeName = dynamicEntityMetadata.TypeName();
             var rv = routeValueDictionaryWrapper.Clone();
-            rv.SetValue("Id", dynamicEntityMetadata.KeyProperty.GetValueFunction(item).ToString());
+            rv.SetValue("Id", dynamicEntityMetadata.KeyProperty().GetValueFunction()(item).ToString());
             dynamicIndexMobileItemViewModel.RouteValueDictionaryWrapper = rv;
             return dynamicIndexMobileItemViewModel;
         }
 
         public IEnumerable<DynamicPropertyMetadata> GetViewProperties(DynamicEntityMetadata dynamicEntityMetadata)
         {
-            var dynamicPropertyMetadatas = dynamicEntityMetadata.ScaffoldIndexProperties;
+            var dynamicPropertyMetadatas = dynamicEntityMetadata.ScaffoldIndexProperties();
             var viewProperties = _requestManager.ViewProperties();
             if (!string.IsNullOrWhiteSpace(viewProperties))
                 dynamicPropertyMetadatas = _propertyFilterManager.FilterAndOrderProperties(dynamicPropertyMetadatas, viewProperties).ToList();
@@ -163,7 +163,7 @@ namespace DynamicMVC.UI.DynamicMVC.ViewModelBuilders
         public IEnumerable<DynamicPropertyIndexViewModel> GetDynamicPropertyViewModels(DynamicEntityMetadata dynamicEntityMetadata, dynamic item)
         {
             var dynamicPropertyIndexViewModels = new List<DynamicPropertyIndexViewModel>();
-            var viewProperties = GetViewProperties(dynamicEntityMetadata).Where(x => x.IsCollection || x.IsSimple || x is DynamicForiegnKeyPropertyMetadata).ToList();
+            var viewProperties = GetViewProperties(dynamicEntityMetadata).Where(x => x.IsDynamicCollection() || x.IsSimple() || x is DynamicForiegnKeyPropertyMetadata).ToList();
 
             foreach (var dynamicProperty in viewProperties)
             {

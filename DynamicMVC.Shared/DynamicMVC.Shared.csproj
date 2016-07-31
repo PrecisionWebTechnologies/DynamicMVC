@@ -60,13 +60,13 @@
   <ItemGroup>
     <Compile Include="Container.cs" />
     <Compile Include="Enums\MessageTypeEnum.cs" />
-    <Compile Include="Enums\SimpleTypeEnum.cs" />
     <Compile Include="Extensions\AttributeExtensions.cs" />
     <Compile Include="Extensions\ICollectionExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Extensions\UnityExtensions.cs" />
     <Compile Include="Interfaces\IApplicationMetadataProvider.cs" />
+    <Compile Include="Interfaces\IApplicationReflectionProvider.cs" />
     <Compile Include="Interfaces\INamingConventionManager.cs" />
     <Compile Include="Interfaces\IPropertyFilterManager.cs" />
     <Compile Include="Interfaces\IPropertyWithPropertyName.cs" />

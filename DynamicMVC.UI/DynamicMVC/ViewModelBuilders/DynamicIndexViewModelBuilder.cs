@@ -23,12 +23,12 @@ namespace DynamicMVC.UI.DynamicMVC.ViewModelBuilders
             var routeValueDictionary = _requestManager.QueryStringDictionary;
             _requestManager.CorrectQuerystringTypes(dynamicEntityMetadata);
             dynamicIndexViewModel.RouteValueDictionaryWrapper = routeValueDictionary;
-            dynamicIndexViewModel.Header = dynamicEntityMetadata.IndexHeader;
-            dynamicIndexViewModel.TypeName = dynamicEntityMetadata.TypeName;
+            dynamicIndexViewModel.Header = dynamicEntityMetadata.IndexHeader();
+            dynamicIndexViewModel.TypeName = dynamicEntityMetadata.TypeName();
             dynamicIndexViewModel.FilterMessage = _dynamicFilterManager.GetFilterMessage(dynamicEntityMetadata, routeValueDictionary);
 
             var filters = _dynamicFilterManager.GetFilterPropertyViewModels(dynamicEntityMetadata, routeValueDictionary).ToList();
-            dynamicIndexViewModel.DynamicIndexFiltersViewModel = new DynamicIndexFiltersViewModel(dynamicEntityMetadata.TypeName, routeValueDictionary, filters);
+            dynamicIndexViewModel.DynamicIndexFiltersViewModel = new DynamicIndexFiltersViewModel(dynamicEntityMetadata.TypeName(), routeValueDictionary, filters);
 
             return dynamicIndexViewModel;
         }

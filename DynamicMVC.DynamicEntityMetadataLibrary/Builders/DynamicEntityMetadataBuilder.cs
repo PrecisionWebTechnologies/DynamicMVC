@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DynamicMVC.DynamicEntityMetadataLibrary.Interfaces;
 using DynamicMVC.DynamicEntityMetadataLibrary.Models;
-using DynamicMVC.EntityMetadataLibrary.Models;
+using ReflectionLibrary.Interfaces;
 
 // ReSharper disable PossibleMultipleEnumeration
 
@@ -11,54 +11,46 @@ namespace DynamicMVC.DynamicEntityMetadataLibrary.Builders
 {
     public class DynamicEntityMetadataBuilder : IDynamicEntityMetadataBuilder
     {
-        private readonly IDynamicEntityMetadataBuilderHelper[] _dynamicEntityMetadataBuilderHelpers;
         private readonly IDynamicPropertyMetadataBuilder _dynamicPropertyMetadataBuilder;
         private readonly IDynamicEntityMetadataPropertyFixup[] _dynamicEntityMetadataFixups;
-        private readonly Func<DynamicEntityMetadata> _dynamicEntityMetadataFunction;
+        private readonly Func<DynamicEntityMetadata> _dynamicEntityMetadataResolver;
 
-        public DynamicEntityMetadataBuilder(IDynamicEntityMetadataBuilderHelper[] dynamicEntityMetadataBuilderHelpers, IDynamicPropertyMetadataBuilder dynamicPropertyMetadataBuilder, IDynamicEntityMetadataPropertyFixup[] dynamicEntityMetadataFixups, Func<DynamicEntityMetadata> dynamicEntityMetadataFunction)
+        public DynamicEntityMetadataBuilder(IDynamicPropertyMetadataBuilder dynamicPropertyMetadataBuilder, IDynamicEntityMetadataPropertyFixup[] dynamicEntityMetadataFixups, Func<DynamicEntityMetadata> dynamicEntityMetadataResolver)
         {
-            _dynamicEntityMetadataBuilderHelpers = dynamicEntityMetadataBuilderHelpers;
             _dynamicPropertyMetadataBuilder = dynamicPropertyMetadataBuilder;
             _dynamicEntityMetadataFixups = dynamicEntityMetadataFixups;
-            _dynamicEntityMetadataFunction = dynamicEntityMetadataFunction;
+            _dynamicEntityMetadataResolver = dynamicEntityMetadataResolver;
         }
 
-        public IEnumerable<DynamicEntityMetadata> Build(IEnumerable<EntityMetadata> entityMetadatas)
+        public IEnumerable<DynamicEntityMetadata> Build(IEnumerable<IReflectedDynamicClass> reflectedClasses)
         {
             var dynamicEntityMetadatas = new List<DynamicEntityMetadata>();
-            foreach (var entityMetadata in entityMetadatas)
+            foreach (var reflectedClass in reflectedClasses)
             {
-                var dynamicEntityMetadata = GetDynamicEntityMetadata(entityMetadatas, entityMetadata.TypeName);
+                var dynamicEntityMetadata = GetDynamicEntityMetadata(reflectedClasses, reflectedClass.Name);
                 dynamicEntityMetadatas.Add(dynamicEntityMetadata);
             }
             //execute fixup extensions in specific order
-            foreach (var dynamicEntityMetadataFixup in _dynamicEntityMetadataFixups.OrderBy(x=>x.Order()))
+            foreach (var dynamicEntityMetadataFixup in _dynamicEntityMetadataFixups.OrderBy(x => x.Order()))
             {
                 dynamicEntityMetadataFixup.Fixup(dynamicEntityMetadatas);
             }
             return dynamicEntityMetadatas;
         }
 
-        private DynamicEntityMetadata GetDynamicEntityMetadata(IEnumerable<EntityMetadata> entityMetadatas, string typeName)
+        private DynamicEntityMetadata GetDynamicEntityMetadata(IEnumerable<IReflectedDynamicClass> reflectedClasses, string typeName)
         {
-            var entityMetadata = entityMetadatas.Single(x => x.TypeName == typeName);
+            var reflectedClass = reflectedClasses.Single(x => x.Name == typeName);
 
-            var dynamicEntityMetadata = _dynamicEntityMetadataFunction();
-            dynamicEntityMetadata.TypeName = entityMetadata.TypeName;
-            dynamicEntityMetadata.EntityType = entityMetadata.EntityType;
-            dynamicEntityMetadata.CreateNewObject = entityMetadata.CreateNewObject;
+            var dynamicEntityMetadata = _dynamicEntityMetadataResolver();
+            dynamicEntityMetadata.ReflectedClass = reflectedClass;
+            dynamicEntityMetadata.ReflectedClasses = reflectedClasses.Select(x => (IReflectedClass)x).ToList();
 
-            var dynamicPropertyMetadatas = _dynamicPropertyMetadataBuilder.Build(entityMetadata);
+            var dynamicPropertyMetadatas = _dynamicPropertyMetadataBuilder.Build(reflectedClass, reflectedClasses);
             foreach (var dynamicPropertyMetadata in dynamicPropertyMetadatas)
             {
                 dynamicEntityMetadata.DynamicPropertyMetadatas.Add(dynamicPropertyMetadata);
                 dynamicPropertyMetadata.DynamicEntityMetadata = dynamicEntityMetadata;
-            }
-            //execute materializerhelper extensions
-            foreach (var dynamicEntityMetadataMaterializerHelper in _dynamicEntityMetadataBuilderHelpers)
-            {
-                dynamicEntityMetadataMaterializerHelper.Build(dynamicEntityMetadata, entityMetadata);
             }
             return dynamicEntityMetadata;
         }

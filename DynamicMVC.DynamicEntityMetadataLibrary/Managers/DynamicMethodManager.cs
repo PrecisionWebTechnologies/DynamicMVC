@@ -45,7 +45,7 @@ namespace DynamicMVC.DynamicEntityMetadataLibrary.Managers
                 if (!dynamicMethodInvokers.Any())
                     throw new Exception("No DynamicMethodInvoker was found for InvokerName " + dynamicMethodAttribute.InvokerName + " (Method: " + reflectedMethod.Name + ")");
                 dynamicMethod.DynamicMethodInvoker = dynamicMethodInvokers.Single();
-                dynamicMethod.InvokeMethodFunction = reflectedMethod.InvokeFunction;
+                dynamicMethod.InvokeMethodFunction = reflectedMethod.ReflectedMethodOperations.InvokeFunction;
                 dynamicMethods.Add(dynamicMethod);
             }
 

@@ -1,4 +1,5 @@
-using DynamicMVC.EntityMetadataLibrary.Models;
+using System.Collections.Generic;
+using ReflectionLibrary.Interfaces;
 
 namespace DynamicMVC.DynamicEntityMetadataLibrary.Models
 {
@@ -7,8 +8,8 @@ namespace DynamicMVC.DynamicEntityMetadataLibrary.Models
     /// </summary>
     public class DynamicForiegnKeyPropertyMetadata : DynamicPropertyMetadata
     {
-        public DynamicForiegnKeyPropertyMetadata(EntityPropertyMetadata entityPropertyMetadata)
-            : base(entityPropertyMetadata)
+        public DynamicForiegnKeyPropertyMetadata(IReflectedProperty reflectedProperty, IEnumerable<IReflectedClass> reflectedClasses)
+            : base(reflectedProperty, reflectedClasses)
         {
             
         }

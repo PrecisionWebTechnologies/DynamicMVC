@@ -16,9 +16,12 @@ namespace DynamicMVC.Shared.Extensions
             return attributes.Where(x => x.AttributeIsOfType<T>()).Select(x => (T)x).ToList();
         }
 
-        public static T GetFirstAttribute<T>(this IEnumerable<Attribute> attributes) where T : Attribute
+        public static T GetAttribute<T>(this IEnumerable<Attribute> attributes) where T : Attribute
         {
-            return attributes.Where(x => x.AttributeIsOfType<T>()).Select(x => (T)x).FirstOrDefault();
+            var filteredattributes = attributes.Where(x => x.AttributeIsOfType<T>()).ToList();
+            if (!filteredattributes.Any())
+                return null;
+            return filteredattributes.Select(x => (T)x).First();
         }
     }
 }

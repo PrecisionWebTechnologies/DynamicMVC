@@ -27,15 +27,15 @@ namespace DynamicMVC.UI.DynamicMVC.ViewModels.DynamicFilterViewModels
             var dynamicForiegnKeyPropertyMetadata = (DynamicForiegnKeyPropertyMetadata)dynamicPropertyMetadata;
 
             string selectedValue = "";
-            if (RouteValueDictionaryWrapper.ContainsKey(dynamicPropertyMetadata.PropertyName))
-                selectedValue = RouteValueDictionaryWrapper.GetValue(dynamicPropertyMetadata.PropertyName).ToString();
+            if (RouteValueDictionaryWrapper.ContainsKey(dynamicPropertyMetadata.PropertyName()))
+                selectedValue = RouteValueDictionaryWrapper.GetValue(dynamicPropertyMetadata.PropertyName()).ToString();
 
             if (LabelText == PropertyName)
-                LabelText = dynamicForiegnKeyPropertyMetadata.ComplexEntityPropertyMetadata.PropertyName;
+                LabelText = dynamicForiegnKeyPropertyMetadata.ComplexEntityPropertyMetadata.PropertyName();
 
-            Type = dynamicForiegnKeyPropertyMetadata.ComplexDynamicEntityMetadata.EntityType;
-            DataTextField = dynamicForiegnKeyPropertyMetadata.ComplexDynamicEntityMetadata.DefaultProperty.PropertyName;
-            DataValueField = dynamicForiegnKeyPropertyMetadata.ComplexDynamicEntityMetadata.KeyProperty.PropertyName;
+            Type = dynamicForiegnKeyPropertyMetadata.ComplexDynamicEntityMetadata.EntityTypeFunction()();
+            DataTextField = dynamicForiegnKeyPropertyMetadata.ComplexDynamicEntityMetadata.DefaultProperty().PropertyName();
+            DataValueField = dynamicForiegnKeyPropertyMetadata.ComplexDynamicEntityMetadata.KeyProperty().PropertyName();
             if (controlParameters.ContainsKey("NullText"))
                 NullText = controlParameters["NullText"].ToString();
             else

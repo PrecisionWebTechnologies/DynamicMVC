@@ -37,7 +37,7 @@ namespace DynamicMVC.UI.DynamicMVC.Managers
         {
             if (returnUrl.Contains("ScopeIdentity"))
             {
-                var keyValue = dynamicEntityMetadata.KeyProperty.GetValueFunction(createModel);
+                var keyValue = dynamicEntityMetadata.KeyProperty().GetValueFunction()(createModel);
                 returnUrl = returnUrl.Replace("ScopeIdentity", keyValue.ToString());
             }
             return returnUrl;

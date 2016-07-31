@@ -25,10 +25,10 @@ namespace DynamicMVC.DynamicEntityMetadataLibrary.Strategies.DynamicEntityMetada
                     if (dynamicPropertyMetadata.GetType() == typeof(DynamicCollectionEntityPropertyMetadata))
                     {
                         var dynamicCollectionEntityPropertyMetadata = (DynamicCollectionEntityPropertyMetadata)dynamicPropertyMetadata;
-                        var collectionDynamicEntityMetadata = dynamicEntityMetadatas.Single(x => x.TypeName == dynamicCollectionEntityPropertyMetadata.TypeName);
+                        var collectionDynamicEntityMetadata = dynamicEntityMetadatas.Single(x => x.TypeName() == dynamicCollectionEntityPropertyMetadata.CollectionItemTypeName());
 
                         //collectionEntityMetadata should have complex property of dynamicentity type or inverse property name
-                        var foreignKeyName = _navigationPropertyManager.GetForiegnKeyNameByCollectionProperty(collectionDynamicEntityMetadata, dynamicEntityMetadata.TypeName, dynamicCollectionEntityPropertyMetadata);
+                        var foreignKeyName = _navigationPropertyManager.GetForiegnKeyNameByCollectionProperty(collectionDynamicEntityMetadata, dynamicEntityMetadata.TypeName(), dynamicCollectionEntityPropertyMetadata);
                         dynamicCollectionEntityPropertyMetadata.ForiegnKeyPropertyName = foreignKeyName;
                     }
                 }
