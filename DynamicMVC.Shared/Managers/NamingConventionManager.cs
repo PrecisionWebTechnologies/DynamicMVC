@@ -28,6 +28,11 @@ namespace DynamicMVC.Shared.Managers
             var dictionary = new Dictionary<string, string>();
             foreach (var controllerName in controllerNames)
             {
+                if (dictionary.ContainsKey(controllerName.ToUpper()))
+                {
+                    continue;
+                }
+
                 dictionary.Add(controllerName.ToUpper(), controllerName);
             }
             if (dictionary.ContainsKey(typeName.ToUpper() + "CONTROLLER"))
